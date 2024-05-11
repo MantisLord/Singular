@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnr058fs4jjwx"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_qytub"]
+[ext_resource type="Shader" path="res://shaders/bubble.gdshader" id="2_qmads"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7rv20"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d8ij3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfmr1"]
+render_priority = 0
+shader = ExtResource("2_qmads")
+shader_parameter/fuwafuwa_speed = 10.0
+shader_parameter/fuwafuwa_size = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_ratio = 1000.0
+shader_parameter/noise_speed = 0.1
+shader_parameter/noise_scale = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b7gf4"]
+lightmap_size_hint = Vector2i(3143, 1004)
+material = SubResource("ShaderMaterial_vfmr1")
+top_radius = 100.0
+bottom_radius = 100.0
+height = 0.001
+radial_segments = 256
+rings = 5
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 3
+collision_mask = 3
+axis_lock_linear_y = true
+script = ExtResource("1_qytub")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_7rv20")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_d8ij3")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPSLabel" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="VelocityLabel" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpawnsLabel" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="BlackHole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
+mesh = SubResource("CylinderMesh_b7gf4")

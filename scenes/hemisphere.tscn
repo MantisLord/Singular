@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci402ee85b523"]
+
+[ext_resource type="PackedScene" uid="uid://d4a4feo0ulxlv" path="res://models/hemisphere.glb" id="1_auis4"]
+
+[node name="hemisphere" instance=ExtResource("1_auis4")]
