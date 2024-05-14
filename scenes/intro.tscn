@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpnm73a347uvu"]
+
+[ext_resource type="PackedScene" uid="uid://bmje80mje8ure" path="res://models/house/House 1.2.glb" id="1_dxpnp"]
+
+[node name="House 1_2" instance=ExtResource("1_dxpnp")]
+
+[node name="Wall Ext S -col" parent="House Rig/Skeleton3D" index="0"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Floor -col" parent="House Rig/Skeleton3D" index="1"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Wall Ext N -col" parent="House Rig/Skeleton3D" index="2"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Wall Ext E -col" parent="House Rig/Skeleton3D" index="3"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Wall Ext W -col" parent="House Rig/Skeleton3D" index="4"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Roof Base -col" parent="House Rig/Skeleton3D" index="5"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Roof -col" parent="House Rig/Skeleton3D" index="6"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3.15, 0, 0, -2.38419e-07)
+
+[node name="Wall Int -col" parent="House Rig/Skeleton3D" index="7"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, -1.19209e-07, 0, 0)
+
+[node name="Door N -col" parent="House Rig/Skeleton3D" index="8"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, -1.19209e-07, 0, 2.98023e-08)
+
+[node name="Door S -col" parent="House Rig/Skeleton3D" index="9"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, -1.19209e-07, 0, 0)
+
+[node name="Wall Int_001 -col" parent="House Rig/Skeleton3D" index="10"]
+transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, -1.19209e-07, 0, -1.19209e-07)
+
+[node name="Neighborhood_2" parent="House Rig/Skeleton3D" index="11"]
+transform = Transform3D(-2, 0, -6.51683e-07, 0, 2, 0, 6.51683e-07, 0, -2, 264, 0, -386)

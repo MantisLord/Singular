@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bwdxgrgcx28ef"
+path="res://.godot/imported/toilet hit 1.wav-1b802ef0ef1b584e3a2e96e3925dd2ef.sample"
+
+[deps]
+
+source_file="res://audio/impact_sfx/toilet/toilet hit 1.wav"
+dest_files=["res://.godot/imported/toilet hit 1.wav-1b802ef0ef1b584e3a2e96e3925dd2ef.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

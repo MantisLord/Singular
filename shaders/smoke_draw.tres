@@ -1,0 +1,15 @@
+[gd_resource type="SphereMesh" load_steps=2 format=3 uid="uid://dv6b86fogs7aw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndfbw"]
+render_priority = 1
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.054902)
+grow_amount = 0.1
+
+[resource]
+material = SubResource("StandardMaterial3D_ndfbw")
+radius = 0.2
+height = 0.4

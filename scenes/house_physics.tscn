@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/FlyingObject.cs" id="1_2ypco"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mcnq"]
+size = Vector3(1.25531, 0.907715, 1.25537)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trk6p"]
 resource_name = "Empty"
 cull_mode = 2
@@ -501,11 +504,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yngll")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8mcnq"]
-size = Vector3(1.25531, 0.907715, 1.25537)
-
 [node name="HousePhysics" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 1, 2.98023e-08, 0, 2.98023e-08, -1, -1, -4.37114e-08, -1.3027e-15, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+mass = 100.0
 script = ExtResource("1_2ypco")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0740051, 2.26929, 0.0134277)
+shape = SubResource("BoxShape3D_8mcnq")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
@@ -561,7 +569,3 @@ skeleton = NodePath("")
 transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
 mesh = SubResource("ArrayMesh_la5e6")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0740051, 2.26929, 0.0134277)
-shape = SubResource("BoxShape3D_8mcnq")

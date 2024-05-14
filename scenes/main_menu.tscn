@@ -1,0 +1,168 @@
+[gd_scene load_steps=7 format=3 uid="uid://74t2ad6ehiik"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_arpbn"]
+[ext_resource type="Texture2D" uid="uid://c0bdtrr37mip7" path="res://images/LevittownPA.png" id="2_pjw8n"]
+
+[sub_resource type="Animation" id="Animation_tun6b"]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundTextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43ils"]
+_data = {
+"FadeIn": SubResource("Animation_tun6b")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g4qu"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h67rl"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.784314)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_arpbn")
+
+[node name="MenuAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_43ils")
+}
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pjw8n")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MainContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleContainer" type="MarginContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/TitleContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainContainer/TitleContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 60
+text = "RELATIVITY"
+horizontal_alignment = 1
+
+[node name="SubTitle" type="Label" parent="MainContainer/TitleContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="MenuContainer" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_3g4qu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MainContainer/MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="MainContainer/MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "Options
+"
+
+[node name="ExitButton" type="Button" parent="MainContainer/MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+text = "Exit"
+
+[node name="OptionsContainer" type="PanelContainer" parent="MainContainer"]
+visible = false
+custom_minimum_size = Vector2(275, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_h67rl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/OptionsContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResolutionLabel" type="Label" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Resolution: "
+vertical_alignment = 1
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="FullscreenLabel" type="Label" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Fullscreen: "
+vertical_alignment = 1
+
+[node name="FullscreenCheckButton" type="CheckButton" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BackButton" type="Button" parent="MainContainer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/PlayButton" to="." method="PlayButtonPressed"]
+[connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/OptionsButton" to="." method="OptionsButtonPressed"]
+[connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/ExitButton" to="." method="ExitButtonPressed"]
+[connection signal="item_selected" from="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer/ResolutionOptionButton" to="." method="ResolutionOptionsItemSelected"]
+[connection signal="toggled" from="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2/FullscreenCheckButton" to="." method="FullscreenButtonToggled"]
+[connection signal="pressed" from="MainContainer/OptionsContainer/VBoxContainer/BackButton" to="." method="BackButtonPressed"]

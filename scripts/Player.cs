@@ -1,32 +1,44 @@
 using Godot;
-using System;
 
 public partial class Player : CharacterBody3D
 {
-    public const float Speed = 5.0f;
-    public const float JumpVelocity = 4.5f;
-
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
-    private Label velocityLabel;
+    private Game game;
+
     private Label fpsLabel;
     private Label spawnsLabel;
 
+    private Label debugLabel1;
+    private Label debugLabel2;
+    private Label debugLabel3;
+    private Label debugLabel4;
+
     private const float MOUSE_SENSITIVITY = 0.15f;
-    private const float MAX_ANGLE_VIEW = 60f;
-    private const float MIN_ANGLE_VIEW = -40f;
+    private const float MAX_ANGLE_VIEW = 90f;
+    private const float MIN_ANGLE_VIEW = -90f;
+    private const float SPEED = 7.0f;
+    private const float SPEED_ACCEL = 3.0f;
+    private const float SPEED_DECCEL = 2.0f;
 
     private Node3D head;
     private Camera3D cam;
 
+    private Control ingameMenu;
+
     public override void _Ready()
     {
-        velocityLabel = GetNode<Label>("Control/VBoxContainer/VelocityLabel");
-        fpsLabel = GetNode<Label>("Control/VBoxContainer/FPSLabel");
-        spawnsLabel = GetNode<Label>("Control/VBoxContainer/SpawnsLabel");
+        game = GetNode<Game>("/root/Game");
+        fpsLabel = GetNode<Label>("UI/VBoxContainer/FPSLabel");
+        spawnsLabel = GetNode<Label>("UI/VBoxContainer/SpawnsLabel");
+        debugLabel1 = GetNode<Label>("UI/VBoxContainer/DebugLabel");
+        debugLabel2 = GetNode<Label>("UI/VBoxContainer/DebugLabel2");
+        debugLabel3 = GetNode<Label>("UI/VBoxContainer/DebugLabel3");
+        debugLabel4 = GetNode<Label>("UI/VBoxContainer/DebugLabel4");
         head = GetNode<Node3D>("Head");
         cam = head.GetNode<Camera3D>("Camera3D");
+        ingameMenu = GetNode<Control>("IngameMenu");
         Input.MouseMode = Input.MouseModeEnum.Captured;
         base._Ready();
     }
@@ -38,7 +50,17 @@ public partial class Player : CharacterBody3D
 
     public override void _Process(double delta)
     {
+        if (Input.IsActionJustPressed("escape"))
+        {
+            ingameMenu.Visible = !ingameMenu.Visible;
+            Input.MouseMode = (ingameMenu.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured);
+            if (ingameMenu.Visible)
+                Input.WarpMouse(new Vector2(GetViewport().GetVisibleRect().Size.X / 2, GetViewport().GetVisibleRect().Size.Y - 500));
+        }
+
         fpsLabel.Text = $"FPS: {Engine.GetFramesPerSecond()}";
+        debugLabel1.Text = $"Position: {Position}";
+        debugLabel2.Text = $"MovementAllowed: {game.movementEnabled}";
         base._Process(delta);
     }
 
@@ -56,33 +78,70 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        float time = (float)delta;
         Vector3 velocity = Velocity;
+        Vector3 direction = new();
+        Basis aim = cam.GlobalTransform.Basis;
+        
+        if (game.movementEnabled)
+        {
+            if (Input.IsActionPressed("forward"))
+                direction -= aim.Z;
+            if (Input.IsActionPressed("backward"))
+                direction += aim.Z;
+            if (Input.IsActionPressed("left"))
+                direction -= aim.X;
+            if (Input.IsActionPressed("right"))
+                direction += aim.X;
+        }
 
-        // Add the gravity.
         if (!IsOnFloor())
-            velocity.Y -= gravity * (float)delta;
+        {
+            velocity.Y -= gravity * time;
+        }
 
-        // Handle Jump.
-        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-            velocity.Y = JumpVelocity;
-
-        // Get the input direction and handle the movement/deceleration.
-        // As good practice, you should replace UI actions with custom gameplay actions.
-        Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
         if (direction != Vector3.Zero)
         {
-            velocity.X = direction.X * Speed;
-            velocity.Z = direction.Z * Speed;
+            velocity.X = Mathf.Lerp(Velocity.X, direction.X * SPEED, time * SPEED_ACCEL);
+            velocity.Z = Mathf.Lerp(Velocity.Z, direction.Z * SPEED, time * SPEED_ACCEL);
         }
         else
         {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-            velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+            velocity.X = Mathf.Lerp(Velocity.X, 0, time * SPEED_DECCEL);
+            velocity.Z = Mathf.Lerp(Velocity.Z, 0, time * SPEED_DECCEL);
+        }
+        Velocity = velocity;
+        MoveAndSlide();
+
+
+
+
+        /*
+        velocity.X = inputDir.X;
+        velocity.Z = inputDir.Y;
+        var direction = (head.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+        float time = (float)delta;
+
+        // Add the gravity.
+        if (!IsOnFloor())
+        {
+            velocity.Y -= gravity * time;
+        }
+
+        if (direction != Vector3.Zero)
+        {
+            velocity.X = Mathf.Lerp(Velocity.X, direction.X * SPEED, time * SPEED_ACCEL);
+            velocity.Z = Mathf.Lerp(Velocity.Z, direction.Z * SPEED, time * SPEED_ACCEL);
+        }
+        else
+        {
+            velocity.X = Mathf.Lerp(Velocity.X, 0, time * SPEED_DECCEL);
+            velocity.Z = Mathf.Lerp(Velocity.Z, 0, time * SPEED_DECCEL);
         }
 
         Velocity = velocity;
         velocityLabel.Text = velocity.ToString();
         MoveAndSlide();
+        */
     }
 }

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dbmfpsl1iiyuk"
+path="res://.godot/imported/heavywobblyimpacthit_11.wav-bb5892b319eb223bb507576084f3d9bc.sample"
+
+[deps]
+
+source_file="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_11.wav"
+dest_files=["res://.godot/imported/heavywobblyimpacthit_11.wav-bb5892b319eb223bb507576084f3d9bc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

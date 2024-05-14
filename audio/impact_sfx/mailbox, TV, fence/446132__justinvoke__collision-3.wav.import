@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cfelshy3nyfen"
+path="res://.godot/imported/446132__justinvoke__collision-3.wav-e65df5c12151690e8a98c2fe52e516ae.sample"
+
+[deps]
+
+source_file="res://audio/impact_sfx/mailbox, TV, fence/446132__justinvoke__collision-3.wav"
+dest_files=["res://.godot/imported/446132__justinvoke__collision-3.wav-e65df5c12151690e8a98c2fe52e516ae.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dpu5cj308sgyj"
+path="res://.godot/imported/337833__newagesoup__med-metal-hit-01.wav-7349b4ab466b175f34f27c66c8845607.sample"
+
+[deps]
+
+source_file="res://audio/impact_sfx/trash can/337833__newagesoup__med-metal-hit-01.wav"
+dest_files=["res://.godot/imported/337833__newagesoup__med-metal-hit-01.wav-7349b4ab466b175f34f27c66c8845607.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
