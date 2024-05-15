@@ -185,17 +185,17 @@ _data = {
 script = ExtResource("2_fl3qk")
 
 [node name="Skeleton3D" parent="Crater Rig" index="0"]
-bones/0/position = Vector3(0, -78.1055, 0)
-bones/0/scale = Vector3(2.12051, 1, 2.12051)
-bones/2/position = Vector3(-9.35758e-14, -75.2616, 0.0373571)
-bones/3/position = Vector3(0, -75.2852, 0)
-bones/3/scale = Vector3(0.998149, 1.05971, 1)
+bones/0/position = Vector3(0, -79.9999, 0)
+bones/0/scale = Vector3(1.00008, 1, 1.00008)
+bones/2/position = Vector3(-1.55461e-14, -79.9762, 0.0373571)
+bones/3/position = Vector3(0, -79.9999, 0)
+bones/3/scale = Vector3(0.999994, 1.00059, 1)
 
 [node name="BlackHole" parent="Crater Rig/Skeleton3D" index="0"]
-transform = Transform3D(4.24102, 0, -2.52784e-07, 0, 2, 0, -2.52784e-07, 0, 4.24102, -1.15635e-07, -85.0672, -9.13021e-08)
+transform = Transform3D(2.00015, 0, -1.19218e-07, 0, 2, 0, -1.19218e-07, 0, 2.00015, -5.4536e-08, -86.9616, -4.306e-08)
 
 [node name="Crater_2" parent="Crater Rig/Skeleton3D" index="1"]
-transform = Transform3D(-1.21296e-07, -6.08737e-08, -1.01323, -6.46283e-08, 1.08428, -6.41182e-08, 1.02319, 6.09867e-08, -1.21459e-07, 0, 15.9581, 0)
+transform = Transform3D(-1.21971e-07, -6.09862e-08, -1.01511, -6.10228e-08, 1.02379, -6.05412e-08, 1.02319, 6.09867e-08, -1.21012e-07, 0, 6.15316, 0)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

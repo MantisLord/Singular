@@ -41,7 +41,7 @@ environment = SubResource("Environment_1eoep")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.979, 1, -1.929)
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.01
 
 [node name="BoundaryParticles" type="GPUParticles3D" parent="."]
 emitting = false
@@ -52,7 +52,7 @@ process_material = ExtResource("7_tun51")
 draw_pass_1 = ExtResource("8_dd1ak")
 
 [node name="Spawner" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 visible = false
 mesh = SubResource("CylinderMesh_nnd21")
 

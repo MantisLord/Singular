@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://drhp8bfm38nuo"]
+[gd_scene load_steps=31 format=3 uid="uid://drhp8bfm38nuo"]
 
 [ext_resource type="Script" path="res://scripts/FlyingObject.cs" id="1_2ypco"]
+[ext_resource type="AnimationLibrary" uid="uid://mfg0cquatxa3" path="res://models/flyingObjectAnim.res" id="2_ods7u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mcnq"]
 size = Vector3(1.25531, 0.907715, 1.25537)
@@ -513,66 +514,71 @@ gravity_scale = 0.0
 inertia = Vector3(1000, 1000, 1000)
 max_contacts_reported = 1
 contact_monitor = true
-constant_force = Vector3(0, 20000, 0)
+linear_velocity = Vector3(0, 10, 0)
 script = ExtResource("1_2ypco")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0740051, 2.26929, 0.0134277)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.0740051, 2.26929, 0.0134277)
 shape = SubResource("BoxShape3D_8mcnq")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 1.70829e-22, -4.23516e-22, 7.11786e-24, 3, 0, 0, 0)
+[node name="Floor" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, -8.47032e-23, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_2kr3s")
 skeleton = NodePath("")
 
-[node name="Wall Ext S" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Wall Ext S" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_blord")
 skeleton = NodePath("")
 
-[node name="Wall Ext_003" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Wall Ext_003" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_yrgyj")
 skeleton = NodePath("")
 
-[node name="Wall Ext" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Wall Ext" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_6kiki")
 skeleton = NodePath("")
 
-[node name="Roof Base" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Roof Base" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_8k4ni")
 skeleton = NodePath("")
 
-[node name="Roof" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3.15, 0, 0, 0)
+[node name="Roof" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.63, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_7g537")
 skeleton = NodePath("")
 
-[node name="Wall Int" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Wall Int" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_088jj")
 skeleton = NodePath("")
 
-[node name="Door N" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Door N" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_oiqge")
 skeleton = NodePath("")
 
-[node name="Door S" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Door S" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_rw0gr")
 skeleton = NodePath("")
 
-[node name="Wall Int_001" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Wall Int_001" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_xrm64")
 skeleton = NodePath("")
 
-[node name="Wall Ext_002" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+[node name="Wall Ext_002" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.6, 0, 1.26218e-29, -4.23516e-22, 0.025, 0, 0, 0, 0.6, -0.014801, -0.453858, -0.00268554)
 mesh = SubResource("ArrayMesh_la5e6")
 skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("2_ods7u")
+}
 
 [connection signal="body_entered" from="." to="." method="Collided"]

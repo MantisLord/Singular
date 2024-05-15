@@ -75,6 +75,7 @@ public partial class World : Node3D
                 break;
         }
         spawn.Position = GetRandomPosOverFloor();
+        spawn.RotationDegrees = new Vector3(rand.RandfRange(-180, 180), rand.RandfRange(-180, 180), rand.RandfRange(-180, 180));
         AddChild(spawn);
         numSpawns++;
         player.SetNumSpawns(numSpawns);
