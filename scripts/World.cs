@@ -12,8 +12,8 @@ public partial class World : Node3D
     private MeshInstance3D spawner;
     private Aabb spawnerBox;
     private Player player;
-    private AnimationObject scenic;
-    private AnimationObject house;
+    private AnimationObject crater;
+    private AnimationObject intro;
     private RandomNumberGenerator rand;
     private AudioManager audioMgr;
     private Game game;
@@ -29,27 +29,23 @@ public partial class World : Node3D
         spawner = GetNode<MeshInstance3D>("Spawner");
         spawnerBox = spawner.GetAabb();
         player = GetNode<Player>("Player");
-        scenic = GetNode<AnimationObject>("Scenic");
-        house = GetNode<AnimationObject>("HouseAnimated");
+        crater = GetNode<AnimationObject>("Crater");
+        intro = GetNode<AnimationObject>("Intro");
         rand = new RandomNumberGenerator();
         boundaryParticles = GetNode<GpuParticles3D>("BoundaryParticles");
 
-        houseTimer = GetNode<Timer>("HouseTimer");
-        houseTimer.Timeout += () => HouseDestructionTimerExpired();
-        holeExpandTimer = GetNode<Timer>("HoleExpandTimer");
-        holeExpandTimer.Timeout += () => scenic.PlayAnimation("ArmatureAction");
-
         audioMgr.Play(Audio.MusicBGIngame, AudioChannel.Music);
+        intro.PlayAnimation("ArmatureAction");
+        crater.PlayAnimation("Crater RigAction");
     }
 
 	public override void _Process(double delta)
 	{
+
     }
 
-    void HouseDestructionTimerExpired()
+    public void IntroDone()
     {
-        house.PlayAnimation("ArmatureAction");
-        game.movementEnabled = true;
         boundaryParticles.Emitting = true;
         spawnTimer.Start();
     }

@@ -4,7 +4,9 @@ using System;
 public partial class Game : Node
 {
     public bool movementEnabled = false;
-	private AudioManager audioMgr;
+    public bool lookEnabled = false;
+    private AudioManager audioMgr;
+	public BoneAttachment3D camLookBone;
     public override void _Ready()
     {
         audioMgr = GetNode<AudioManager>("/root/AudioManager");

@@ -1,8 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnr058fs4jjwx"]
+[gd_scene load_steps=28 format=3 uid="uid://cnr058fs4jjwx"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_qytub"]
 [ext_resource type="PackedScene" uid="uid://ct2hs2bfg2gli" path="res://scenes/ingame_menu.tscn" id="2_4oe3m"]
 [ext_resource type="Shader" path="res://shaders/bubble.gdshader" id="2_qmads"]
+[ext_resource type="AudioStream" uid="uid://du20udxs3g787" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_01.wav" id="4_vr5xi"]
+[ext_resource type="AudioStream" uid="uid://bvajyo7v87leg" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_02.wav" id="5_gojho"]
+[ext_resource type="AudioStream" uid="uid://cu1gnh13dsdx5" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_03.wav" id="6_lhbbj"]
+[ext_resource type="AudioStream" uid="uid://bxyjapikoxjnw" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_06.wav" id="7_15bxu"]
+[ext_resource type="AudioStream" uid="uid://dl7svg625b7ig" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_10.wav" id="8_3mj0u"]
+[ext_resource type="AudioStream" uid="uid://dbmfpsl1iiyuk" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_11.wav" id="9_6yw7m"]
+[ext_resource type="AudioStream" uid="uid://oo0y5espoly7" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_13.wav" id="10_af35s"]
+[ext_resource type="AudioStream" uid="uid://c8yb8gr72h21g" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_14.wav" id="11_i665l"]
+[ext_resource type="AudioStream" uid="uid://cil506bpby13x" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_15.wav" id="12_4b10s"]
+[ext_resource type="AudioStream" uid="uid://caknkx7v7lacd" path="res://audio/player_sfx/547195__mrfossy__voice_adultmale_paingrunts_12.wav" id="13_mikby"]
+[ext_resource type="AudioStream" uid="uid://cbxft1cf2jphr" path="res://audio/player_sfx/547198__mrfossy__voice_adultmale_paingrunts_15.wav" id="14_m6e56"]
+[ext_resource type="AudioStream" uid="uid://bu3clpsng6fgs" path="res://audio/player_sfx/547201__mrfossy__voice_adultmale_paingrunts_03.wav" id="15_3xcls"]
+[ext_resource type="AudioStream" uid="uid://vgtytbo5o0cq" path="res://audio/player_sfx/547202__mrfossy__voice_adultmale_paingrunts_02.wav" id="16_6okmy"]
+[ext_resource type="AudioStream" uid="uid://cvsi4mbfon14h" path="res://audio/player_sfx/547203__mrfossy__voice_adultmale_paingrunts_01.wav" id="17_1w0xc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7rv20"]
 
@@ -41,6 +55,40 @@ albedo_color = Color(0, 1, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4hbd"]
 albedo_color = Color(0, 0, 1, 1)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2c86i"]
+streams_count = 9
+stream_0/stream = ExtResource("4_vr5xi")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_gojho")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_lhbbj")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_15bxu")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("8_3mj0u")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("9_6yw7m")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("10_af35s")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("11_i665l")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("12_4b10s")
+stream_8/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5gxj4"]
+streams_count = 5
+stream_0/stream = ExtResource("13_mikby")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("14_m6e56")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("15_3xcls")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("16_6okmy")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("17_1w0xc")
+stream_4/weight = 1.0
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 3
 collision_mask = 3
@@ -54,6 +102,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+far = 5000.0
 
 [node name="IngameMenu" parent="." instance=ExtResource("2_4oe3m")]
 visible = false
@@ -68,6 +117,18 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Health:"
+
+[node name="HealthProgressBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+value = 100.0
 
 [node name="FPSLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
@@ -137,3 +198,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g4hbd")
 [node name="Label3D3" type="Label3D" parent="DebugShapes/MeshInstance3D4"]
 transform = Transform3D(-1, -8.74228e-08, -1.74846e-07, -1.74846e-07, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, -0.0509831, -4.00098, 0.504494)
 text = "-X"
+
+[node name="ImpactHeavyAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_2c86i")
+
+[node name="GruntAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_5gxj4")

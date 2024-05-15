@@ -8,6 +8,7 @@ public partial class AudioManager : Node
     AudioStreamPlayer ambienceStreamPlayer = new();
     AudioStreamPlayer musicStreamPlayer = new();
     AudioStream asMusicBGIngame;
+    RandomNumberGenerator rand = new();
 
     // todo: 1 channel per audio played?...
     public enum AudioChannel
@@ -22,6 +23,7 @@ public partial class AudioManager : Node
     public enum Audio
     {
         MusicBGIngame,
+        ImpactLarge,
     }
 
     public override void _Ready()
@@ -33,6 +35,14 @@ public partial class AudioManager : Node
         AddChild(sfxStreamPlayer3);
         AddChild(ambienceStreamPlayer);
         AddChild(musicStreamPlayer);
+        rand.Randomize();
+    }
+
+    public void Play(AudioStreamPlayer3D player, AudioChannel channel = AudioChannel.SFX1)
+    {
+        // adjust volume based on channel
+        //player.VolumeDb = 
+        player.Play();
     }
 
     public void Play(Audio sound, AudioChannel channel = AudioChannel.SFX1, bool await = false)
@@ -58,7 +68,6 @@ public partial class AudioManager : Node
                 currentPlayer = musicStreamPlayer;
                 break;
         }
-        float fromPos = 0;
         switch (sound)
         {
             case Audio.MusicBGIngame:
@@ -66,7 +75,7 @@ public partial class AudioManager : Node
                 break;
         }
         currentPlayer.Stream = stream;
-        currentPlayer.Play(fromPos);
+        currentPlayer.Play();
         if (await)
             System.Threading.Thread.Sleep((int)(stream.GetLength() * 1000));
     }

@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_vtg0a"]
 [ext_resource type="PackedScene" uid="uid://cnr058fs4jjwx" path="res://scenes/player.tscn" id="2_ck5yq"]
 [ext_resource type="PackedScene" uid="uid://lr6tm80y6q65" path="res://scenes/cylinder.tscn" id="2_jqyku"]
-[ext_resource type="PackedScene" uid="uid://colvi31iaoqvq" path="res://scenes/house_animated.tscn" id="6_s0i5x"]
 [ext_resource type="Material" uid="uid://c27stqex51obp" path="res://shaders/smoke.tres" id="7_tun51"]
-[ext_resource type="PackedScene" uid="uid://bdjlmctcjn4ed" path="res://scenes/scenic.tscn" id="8_2106l"]
 [ext_resource type="SphereMesh" uid="uid://dv6b86fogs7aw" path="res://shaders/smoke_draw.tres" id="8_dd1ak"]
+[ext_resource type="PackedScene" uid="uid://dpnm73a347uvu" path="res://scenes/intro.tscn" id="8_fjsju"]
+[ext_resource type="PackedScene" uid="uid://dhci2eah1inul" path="res://scenes/crater.tscn" id="8_hie8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qqm4p"]
 
@@ -16,7 +16,7 @@ sky_material = SubResource("ProceduralSkyMaterial_qqm4p")
 [sub_resource type="Environment" id="Environment_1eoep"]
 background_mode = 2
 sky = SubResource("Sky_jaeft")
-sky_rotation = Vector3(0, 0, -1.5708)
+sky_rotation = Vector3(1.5708, 0, 0)
 ambient_light_source = 2
 ambient_light_color = Color(0.45098, 0.333333, 0.309804, 1)
 ambient_light_energy = 0.5
@@ -38,19 +38,10 @@ script = ExtResource("1_vtg0a")
 environment = SubResource("Environment_1eoep")
 
 [node name="Player" parent="." instance=ExtResource("2_ck5yq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.82411, 1, -1.74866)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.979, 1, -1.929)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.5
-
-[node name="HouseTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
-[node name="HoleExpandTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-autostart = true
 
 [node name="BoundaryParticles" type="GPUParticles3D" parent="."]
 emitting = false
@@ -60,12 +51,11 @@ visibility_aabb = AABB(-23.4382, -4, -22.1177, 46.8763, 8, 44.2353)
 process_material = ExtResource("7_tun51")
 draw_pass_1 = ExtResource("8_dd1ak")
 
-[node name="Scenic" parent="." instance=ExtResource("8_2106l")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
-
-[node name="HouseAnimated" parent="." instance=ExtResource("6_s0i5x")]
-
 [node name="Spawner" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
 visible = false
 mesh = SubResource("CylinderMesh_nnd21")
+
+[node name="Crater" parent="." instance=ExtResource("8_hie8l")]
+
+[node name="Intro" parent="." instance=ExtResource("8_fjsju")]

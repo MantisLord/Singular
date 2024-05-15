@@ -14,7 +14,7 @@ point_count = 3
 curve = SubResource("Curve_l6cbq")
 
 [resource]
-emission_shape_offset = Vector3(0, -30, 0)
+emission_shape_offset = Vector3(0, -20, 0)
 emission_shape = 6
 emission_ring_axis = Vector3(0, 1, 0)
 emission_ring_height = 0.0

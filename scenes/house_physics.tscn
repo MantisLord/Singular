@@ -508,7 +508,12 @@ shadow_mesh = SubResource("ArrayMesh_yngll")
 transform = Transform3D(-4.37114e-08, 1, 2.98023e-08, 0, 2.98023e-08, -1, -1, -4.37114e-08, -1.3027e-15, 0, 0, 0)
 collision_layer = 2
 collision_mask = 2
-mass = 100.0
+mass = 1000.0
+gravity_scale = 0.0
+inertia = Vector3(1000, 1000, 1000)
+max_contacts_reported = 1
+contact_monitor = true
+constant_force = Vector3(0, 20000, 0)
 script = ExtResource("1_2ypco")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -569,3 +574,5 @@ skeleton = NodePath("")
 transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
 mesh = SubResource("ArrayMesh_la5e6")
 skeleton = NodePath("")
+
+[connection signal="body_entered" from="." to="." method="Collided"]
