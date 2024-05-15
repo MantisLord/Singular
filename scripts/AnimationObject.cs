@@ -4,9 +4,11 @@ using System;
 public partial class AnimationObject : Node3D
 {
     private Game game;
-	public override void _Ready()
+    private World world;
+    public override void _Ready()
     {
         game = GetNode<Game>("/root/Game");
+        world = GetTree().Root.GetNode<World>("World");
         if (Name == "Intro")
         {
             game.camLookBone = GetNode<BoneAttachment3D>("Intro Rig/Skeleton3D/TV Screen_2");
@@ -14,9 +16,11 @@ public partial class AnimationObject : Node3D
         base._Ready();
     }
 
-	public void PlayAnimation(string AnimationName)
+	public void PlayAnimation(string AnimationName, double seekTime = 0)
     {
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");
+        if (seekTime > 0)
+            anim.Seek(seekTime);
         anim.Play(AnimationName);
     }
 
@@ -32,8 +36,6 @@ public partial class AnimationObject : Node3D
 
     private void IntroDone()
     {
-        game.movementEnabled = true;
-        World world = GetTree().Root.GetNode<World>("World");
         world.IntroDone();
     }
 

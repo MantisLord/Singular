@@ -505,7 +505,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yngll")
 
 [node name="HousePhysics" type="RigidBody3D"]
-transform = Transform3D(-4.37114e-08, 1, 2.98023e-08, 0, 2.98023e-08, -1, -1, -4.37114e-08, -1.3027e-15, 0, 0, 0)
+transform = Transform3D(1, 1.06581e-14, 2.11758e-22, 0, 2.98023e-08, -1, -1.06581e-14, 1, 2.98023e-08, 0, 0, 0)
 collision_layer = 2
 collision_mask = 2
 mass = 1000.0
@@ -521,7 +521,7 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0740051, 2.26929, 0.0134277
 shape = SubResource("BoxShape3D_8mcnq")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 0.125, 0, 0, 0, 3, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 0.125, 1.70829e-22, -4.23516e-22, 7.11786e-24, 3, 0, 0, 0)
 mesh = SubResource("ArrayMesh_2kr3s")
 skeleton = NodePath("")
 

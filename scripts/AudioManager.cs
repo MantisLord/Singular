@@ -7,29 +7,31 @@ public partial class AudioManager : Node
     AudioStreamPlayer sfxStreamPlayer3 = new();
     AudioStreamPlayer ambienceStreamPlayer = new();
     AudioStreamPlayer musicStreamPlayer = new();
-    AudioStream asMusicBGIngame;
+    AudioStream asOpening, asGame, asClosing;
     RandomNumberGenerator rand = new();
 
-    // todo: 1 channel per audio played?...
     public enum AudioChannel
     {
-        SFX1, // menu buttons, item pickups, interacting
-        SFX2, // weapons
-        SFX3, // menu open/close
+        SFX1,
+        SFX2,
+        SFX3,
         Ambient,
         Music
     }
 
     public enum Audio
     {
-        MusicBGIngame,
-        ImpactLarge,
+        Opening,
+        GameMusic,
+        Closing,
     }
 
     public override void _Ready()
     {
         base._Ready();
-        asMusicBGIngame = GD.Load<AudioStream>("res://audio/music/opening_announcement_draft_2_with_music_intro.mp3");
+        asOpening = GD.Load<AudioStream>("res://audio/music/opening.ogg");
+        asGame = GD.Load<AudioStream>("res://audio/music/game.ogg");
+        asClosing = GD.Load<AudioStream>("res://audio/music/closing.ogg");
         AddChild(sfxStreamPlayer1);
         AddChild(sfxStreamPlayer2);
         AddChild(sfxStreamPlayer3);
@@ -70,8 +72,14 @@ public partial class AudioManager : Node
         }
         switch (sound)
         {
-            case Audio.MusicBGIngame:
-                stream = asMusicBGIngame;
+            case Audio.Opening:
+                stream = asOpening;
+                break;
+            case Audio.GameMusic:
+                stream = asGame;
+                break;
+            case Audio.Closing:
+                stream = asClosing;
                 break;
         }
         currentPlayer.Stream = stream;

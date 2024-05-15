@@ -27,11 +27,12 @@ public partial class Player : CharacterBody3D
     private Camera3D cam;
 
     private Control ingameMenu;
-    private ProgressBar healthProgressBar;
     private AudioStreamPlayer3D impactHeavyAudioStreamPlayer;
     private AudioStreamPlayer3D gruntAudioStreamPlayer;
 
     private RandomNumberGenerator rand = new();
+
+    public ProgressBar healthProgressBar;
 
     public override void _Ready()
     {
@@ -89,7 +90,7 @@ public partial class Player : CharacterBody3D
 
         fpsLabel.Text = $"FPS: {Engine.GetFramesPerSecond()}";
         debugLabel1.Text = $"Position: {Position}";
-        debugLabel2.Text = $"MovementAllowed: {game.movementEnabled}";
+        debugLabel2.Text = $"MoveEnabled: {game.movementEnabled} | LookEnabled: {game.lookEnabled}";
         base._Process(delta);
     }
 

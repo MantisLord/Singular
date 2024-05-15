@@ -34,7 +34,7 @@ public partial class World : Node3D
         rand = new RandomNumberGenerator();
         boundaryParticles = GetNode<GpuParticles3D>("BoundaryParticles");
 
-        audioMgr.Play(Audio.MusicBGIngame, AudioChannel.Music);
+        audioMgr.Play(Audio.Opening, AudioChannel.Ambient);
         intro.PlayAnimation("ArmatureAction");
         crater.PlayAnimation("Crater RigAction");
     }
@@ -44,8 +44,20 @@ public partial class World : Node3D
 
     }
 
+    public void Restart()
+    {
+        game.lookEnabled = true;
+        player.healthProgressBar.Value = 100;
+        audioMgr.Stop();
+        intro.PlayAnimation("ArmatureAction", 60);
+        crater.PlayAnimation("Crater RigAction", 60);
+        IntroDone();
+    }
+
     public void IntroDone()
     {
+        audioMgr.Play(Audio.GameMusic, AudioChannel.Music);
+        game.movementEnabled = true;
         boundaryParticles.Emitting = true;
         spawnTimer.Start();
     }

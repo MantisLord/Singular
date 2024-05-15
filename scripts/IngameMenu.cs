@@ -4,13 +4,23 @@ using System;
 public partial class IngameMenu : Control
 {
     private Game game;
-	public override void _Ready()
+    private World world;
+    public override void _Ready()
     {
         game = GetNode<Game>("/root/Game");
+        world = GetTree().Root.GetNode<World>("World");
     }
+
     private void RestartButtonPressed()
     {
-        game.ChangeScene("world");
+        world.Restart();
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+        Visible = false;
+    }
+
+    private void MainMenuButtonPressed()
+    {
+        game.EndGame();
     }
 
     private void ResumeButtonPressed()
