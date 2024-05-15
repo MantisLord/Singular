@@ -61,7 +61,7 @@ public partial class Player : CharacterBody3D
         healthProgressBar.Value -= amount;
         audioMgr.Play(impactHeavyAudioStreamPlayer);
 
-        if (rand.RandiRange(0,1) == 1)
+        if (rand.RandiRange(0, 1) == 1)
             audioMgr.Play(gruntAudioStreamPlayer);
 
         if (healthProgressBar.Value <= 0)
@@ -115,7 +115,7 @@ public partial class Player : CharacterBody3D
         Vector3 velocity = Velocity;
         Vector3 direction = new();
         Basis aim = cam.GlobalTransform.Basis;
-        
+
         if (game.movementEnabled)
         {
             if (Input.IsActionPressed("forward"))

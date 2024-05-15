@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class FlyingObject : RigidBody3D
 {
@@ -23,8 +22,8 @@ public partial class FlyingObject : RigidBody3D
             player.TakeHit(DamageDealt);
     }
 
-	public override void _Process(double delta)
-	{
+    public override void _Process(double delta)
+    {
         //Vector3 scale = new(Scale.X , Scale.Y, Scale.Z);
         //scale.X = Mathf.Lerp(Scale.X, 1.0f, (float)delta * SCALE_TIME);
         //scale.Y = Mathf.Lerp(Scale.Y, 1.0f, (float)delta * SCALE_TIME);

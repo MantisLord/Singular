@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class AnimationObject : Node3D
 {
@@ -16,7 +15,7 @@ public partial class AnimationObject : Node3D
         base._Ready();
     }
 
-	public void PlayAnimation(string AnimationName, double seekTime = 0)
+    public void PlayAnimation(string AnimationName, double seekTime = 0)
     {
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");
         if (seekTime > 0)
@@ -39,7 +38,7 @@ public partial class AnimationObject : Node3D
         world.IntroDone();
     }
 
-	public override void _Process(double delta)
-	{
-	}
+    public override void _Process(double delta)
+    {
+    }
 }

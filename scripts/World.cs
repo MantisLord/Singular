@@ -39,8 +39,8 @@ public partial class World : Node3D
         crater.PlayAnimation("Crater RigAction");
     }
 
-	public override void _Process(double delta)
-	{
+    public override void _Process(double delta)
+    {
 
     }
 
@@ -65,7 +65,7 @@ public partial class World : Node3D
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
-        switch (rand.RandiRange(0,1))
+        switch (rand.RandiRange(0, 1))
         {
             case 0:
                 spawn = blockScene.Instantiate<FlyingObject>();

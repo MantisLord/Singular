@@ -51,7 +51,7 @@ custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 text = "Restart"
 
-[node name="MainMenuBUtton" type="Button" parent="MenuContainer/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 text = "Main Menu"
@@ -63,5 +63,5 @@ text = "Exit"
 
 [connection signal="pressed" from="MenuContainer/VBoxContainer/ResumeButton" to="." method="ResumeButtonPressed"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/RestartButton" to="." method="RestartButtonPressed"]
-[connection signal="pressed" from="MenuContainer/VBoxContainer/MainMenuBUtton" to="." method="RestartButtonPressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/MainMenuButton" to="." method="MainMenuButtonPressed"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/ExitButton" to="." method="ExitButtonPressed"]

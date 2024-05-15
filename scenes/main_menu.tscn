@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://74t2ad6ehiik"]
+[gd_scene load_steps=10 format=3 uid="uid://74t2ad6ehiik"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_arpbn"]
+[ext_resource type="Texture2D" uid="uid://cc5bxta8mjm6f" path="res://images/addition_symbol.png" id="2_8lcv3"]
 [ext_resource type="Texture2D" uid="uid://c0bdtrr37mip7" path="res://images/LevittownPA.png" id="2_pjw8n"]
+[ext_resource type="Script" path="res://scripts/KeyAssignmentDialog.cs" id="3_2g67k"]
+[ext_resource type="Texture2D" uid="uid://bl3nmyxw2ddlg" path="res://images/subtraction_symbol.png" id="3_ufeqa"]
 
 [sub_resource type="Animation" id="Animation_tun6b"]
 resource_name = "FadeIn"
@@ -45,6 +48,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_arpbn")
+addButtonTexture = ExtResource("2_8lcv3")
+removeButtonTexture = ExtResource("3_ufeqa")
 
 [node name="MenuAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -127,6 +132,7 @@ size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_h67rl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/OptionsContainer"]
+custom_minimum_size = Vector2(400, 500)
 layout_mode = 2
 alignment = 1
 
@@ -156,13 +162,54 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 4
 
+[node name="FullscreenLabel2" type="Label" parent="MainContainer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tree" type="Tree" parent="MainContainer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+hide_root = true
+
+[node name="ResetControlsButton" type="Button" parent="MainContainer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Default Controls"
+
 [node name="BackButton" type="Button" parent="MainContainer/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
+
+[node name="KeyAssignmentDialog" type="ConfirmationDialog" parent="MainContainer/OptionsContainer"]
+title = "Assign Key"
+size = Vector2i(400, 100)
+dialog_text = "Press a key or button..."
+script = ExtResource("3_2g67k")
+
+[node name="KeyDeletionDialog" type="ConfirmationDialog" parent="MainContainer/OptionsContainer"]
+title = "Remove Key"
+size = Vector2i(420, 100)
+dialog_text = "Are you sure you want to remove KEY from ACTION?"
+
+[node name="OneInputMinimumDialog" type="AcceptDialog" parent="MainContainer/OptionsContainer"]
+title = "Cannot Remove"
+size = Vector2i(400, 100)
+
+[node name="AlreadyAssignedDialog" type="AcceptDialog" parent="MainContainer/OptionsContainer"]
+title = "Already Assigned"
+size = Vector2i(400, 100)
 
 [connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/PlayButton" to="." method="PlayButtonPressed"]
 [connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/OptionsButton" to="." method="OptionsButtonPressed"]
 [connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/ExitButton" to="." method="ExitButtonPressed"]
 [connection signal="item_selected" from="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer/ResolutionOptionButton" to="." method="ResolutionOptionsItemSelected"]
 [connection signal="toggled" from="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2/FullscreenCheckButton" to="." method="FullscreenButtonToggled"]
+[connection signal="button_clicked" from="MainContainer/OptionsContainer/VBoxContainer/Tree" to="." method="OnTreeButtonClicked"]
+[connection signal="item_activated" from="MainContainer/OptionsContainer/VBoxContainer/Tree" to="." method="OnTreeItemActivated"]
+[connection signal="pressed" from="MainContainer/OptionsContainer/VBoxContainer/ResetControlsButton" to="." method="OnResetButtonPressed"]
 [connection signal="pressed" from="MainContainer/OptionsContainer/VBoxContainer/BackButton" to="." method="BackButtonPressed"]
+[connection signal="canceled" from="MainContainer/OptionsContainer/KeyAssignmentDialog" to="." method="OnKeyAssignmentDialogCanceled"]
+[connection signal="confirmed" from="MainContainer/OptionsContainer/KeyAssignmentDialog" to="." method="OnKeyAssignmentDialogConfirmed"]
+[connection signal="confirmed" from="MainContainer/OptionsContainer/KeyDeletionDialog" to="." method="OnKeyDeletionDialogConfirmed"]

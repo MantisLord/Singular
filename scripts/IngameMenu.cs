@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class IngameMenu : Control
 {
@@ -35,6 +34,6 @@ public partial class IngameMenu : Control
     }
 
     public override void _Process(double delta)
-	{
-	}
+    {
+    }
 }
