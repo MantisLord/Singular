@@ -1457,6 +1457,9 @@ bones/31/position = Vector3(2.61182, 0.192722, 0.0353142)
 [node name="Wall Ext S -col" parent="Intro Rig/Skeleton3D" index="0"]
 transform = Transform3D(0.151787, 0.00018829, -0.00294982, -0.00484621, 0.0062778, -0.0185539, 0.00237418, 0.000776513, 0.150716, 1.31474, -9.22993, -1.34507)
 
+[node name="CollisionShape3D" parent="Intro Rig/Skeleton3D/Wall Ext S -col/Wall Ext S /StaticBody3D" index="0"]
+transform = Transform3D(1, -2.18279e-11, 0, -6.33299e-08, 1, 0, 0, 4.65661e-10, 1, 0, 0, 0)
+
 [node name="Floor -col" parent="Intro Rig/Skeleton3D" index="1"]
 transform = Transform3D(0.151787, 0.00018829, -0.00294982, -0.00484621, 0.0062778, -0.0185539, 0.00237418, 0.000776513, 0.150716, 1.31474, -9.22993, -1.34507)
 
