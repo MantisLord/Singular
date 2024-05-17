@@ -8,7 +8,7 @@ public partial class World : Node3D
     private Timer houseTimer;
     private Timer holeExpandTimer;
     private PackedScene blockScene = GD.Load<PackedScene>("res://scenes/block.tscn");
-    private PackedScene houseScene = GD.Load<PackedScene>("res://scenes/house.tscn");
+    private PackedScene houseScene = GD.Load<PackedScene>("res://scenes/flying_object_house.tscn");
     private PackedScene carScene = GD.Load<PackedScene>("res://scenes/car.tscn");
     private PackedScene trashcanScene = GD.Load<PackedScene>("res://scenes/trashcan.tscn");
     private PackedScene toiletScene = GD.Load<PackedScene>("res://scenes/toilet.tscn");

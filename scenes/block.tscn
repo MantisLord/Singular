@@ -7,7 +7,7 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_3437n"]
 
-[node name="Block" type="RigidBody3D" node_paths=PackedStringArray("CollisionAudio")]
+[node name="Block" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 2
 gravity_scale = 0.0
@@ -16,7 +16,6 @@ contact_monitor = true
 linear_velocity = Vector3(0, 10, 0)
 script = ExtResource("1_sf51j")
 DamageDealt = 5
-CollisionAudio = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)

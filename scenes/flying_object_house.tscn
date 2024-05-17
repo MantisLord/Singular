@@ -1,0 +1,69 @@
+[gd_scene load_steps=15 format=3 uid="uid://drhp8bfm38nuo"]
+
+[ext_resource type="Script" path="res://scripts/FlyingObject.cs" id="1_31cp2"]
+[ext_resource type="AnimationLibrary" uid="uid://mfg0cquatxa3" path="res://models/flyingObjectAnim.res" id="2_ogwph"]
+[ext_resource type="AudioStream" uid="uid://du20udxs3g787" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_01.wav" id="3_8vp12"]
+[ext_resource type="AudioStream" uid="uid://bvajyo7v87leg" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_02.wav" id="4_08y23"]
+[ext_resource type="AudioStream" uid="uid://cu1gnh13dsdx5" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_03.wav" id="5_unx2s"]
+[ext_resource type="AudioStream" uid="uid://bxyjapikoxjnw" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_06.wav" id="6_dmfa0"]
+[ext_resource type="AudioStream" uid="uid://dl7svg625b7ig" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_10.wav" id="7_nlbid"]
+[ext_resource type="AudioStream" uid="uid://dbmfpsl1iiyuk" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_11.wav" id="8_cwclh"]
+[ext_resource type="AudioStream" uid="uid://oo0y5espoly7" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_13.wav" id="9_3f8l0"]
+[ext_resource type="AudioStream" uid="uid://c8yb8gr72h21g" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_14.wav" id="10_bfu73"]
+[ext_resource type="AudioStream" uid="uid://cil506bpby13x" path="res://audio/impact_sfx/concrete, houses, rocks, large objects/heavywobblyimpacthit_15.wav" id="11_3t8j5"]
+[ext_resource type="PackedScene" uid="uid://wdlqide7clam" path="res://scenes/house.tscn" id="12_8rgj2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mcnq"]
+size = Vector3(1.25531, 0.907715, 1.25537)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v4fv7"]
+streams_count = 9
+stream_0/stream = ExtResource("3_8vp12")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_08y23")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_unx2s")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("6_dmfa0")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("7_nlbid")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("8_cwclh")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("9_3f8l0")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("10_bfu73")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("11_3t8j5")
+stream_8/weight = 1.0
+
+[node name="House" type="RigidBody3D" node_paths=PackedStringArray("CollisionAudio")]
+transform = Transform3D(1, 1.06581e-14, -4.6588e-22, 0, -4.37114e-08, -1, -1.06581e-14, 1, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+mass = 1000.0
+gravity_scale = 0.0
+inertia = Vector3(10000, 10000, 10000)
+max_contacts_reported = 1
+contact_monitor = true
+linear_velocity = Vector3(0, 10, 0)
+script = ExtResource("1_31cp2")
+ObjectName = "House"
+CollisionAudio = NodePath("ImpactHeavyAudioStreamPlayer3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.0740051, 2.26929, 0.0134277)
+shape = SubResource("BoxShape3D_8mcnq")
+
+[node name="House" parent="CollisionShape3D" instance=ExtResource("12_8rgj2")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0085577, -0.408535, -0.00268554)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"flyingObjectAnim": ExtResource("2_ogwph")
+}
+
+[node name="ImpactHeavyAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_v4fv7")
+
+[connection signal="body_entered" from="." to="." method="Collided"]

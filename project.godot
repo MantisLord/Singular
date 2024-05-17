@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Relativity"
+config/name="Singular"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/image="res://images/Green_Wormhole.png"
@@ -28,7 +28,7 @@ window/size/viewport_height=1080
 
 [dotnet]
 
-project/assembly_name="Relativity"
+project/assembly_name="Singular"
 
 [input]
 

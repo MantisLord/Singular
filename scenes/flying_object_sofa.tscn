@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://dk54e10077nc6"]
+
+[ext_resource type="Script" path="res://scripts/FlyingObject.cs" id="1_0lt2t"]
+[ext_resource type="AnimationLibrary" uid="uid://mfg0cquatxa3" path="res://models/flyingObjectAnim.res" id="2_htyjs"]
+[ext_resource type="AudioStream" uid="uid://kektu4lqk1fs" path="res://audio/impact_sfx/bed or sofa/bed or sofa 1.wav" id="3_6i2y6"]
+[ext_resource type="AudioStream" uid="uid://3b5hgy5wk1ff" path="res://audio/impact_sfx/bed or sofa/bed or sofa 2.wav" id="4_7xbx5"]
+[ext_resource type="AudioStream" uid="uid://bcgjhqosrmlce" path="res://audio/impact_sfx/bed or sofa/bed or sofa 3.wav" id="5_bvk2o"]
+[ext_resource type="PackedScene" uid="uid://b1tq55dpivpas" path="res://scenes/sofa.tscn" id="6_u2ab4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_81sy4"]
+size = Vector3(0.779785, 0.72113, 2.36478)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u6865"]
+streams_count = 3
+stream_0/stream = ExtResource("3_6i2y6")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_7xbx5")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_bvk2o")
+stream_2/weight = 1.0
+
+[node name="Sofa2" type="RigidBody3D" node_paths=PackedStringArray("CollisionAudio")]
+collision_layer = 2
+collision_mask = 2
+mass = 10.0
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+linear_velocity = Vector3(0, 10, 0)
+script = ExtResource("1_0lt2t")
+ObjectName = "Sofa"
+DamageDealt = 7
+CollisionAudio = NodePath("AudioStreamPlayer3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.36879, 0.469993, -1.85954)
+shape = SubResource("BoxShape3D_81sy4")
+
+[node name="Sofa2" parent="CollisionShape3D" instance=ExtResource("6_u2ab4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36879, -0.469993, 1.85954)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"flyingObjectAnim": ExtResource("2_htyjs")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_u6865")
+
+[connection signal="body_entered" from="." to="." method="Collided"]
