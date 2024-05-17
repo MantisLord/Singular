@@ -28,7 +28,7 @@ public partial class World : Node3D
     {
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
         game = GetNode<Game>("/root/Game");
-
+        game.gameOver = false;
         spawnTimer = GetNode<Timer>("SpawnTimer");
         spawnTimer.Timeout += () => SpawnObstacle();
         player = GetNode<Player>("Player");
