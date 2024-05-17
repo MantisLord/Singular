@@ -43,6 +43,7 @@ public partial class World : Node3D
         intro.PlayAnimation("ArmatureAction");
         islands.PlayAnimation("Island RigAction_001");
         town.PlayAnimation("ArmatureAction_002");
+        crater.PlayAnimation("Crater RigAction");
     }
 
     public override void _Process(double delta)
@@ -64,7 +65,7 @@ public partial class World : Node3D
         player.statusLabel.Visible = false;
         audioMgr.Stop();
         intro.PlayAnimation("ArmatureAction", 57);
-        crater.PlayAnimation("Crater RigAction", 0);
+        crater.PlayAnimation("Crater RigAction", 57);
         islands.PlayAnimation("Island RigAction_001", 57);
         town.PlayAnimation("ArmatureAction_002", 57);
         audioMgr.Play(Audio.GameMusic, AudioChannel.Music, false, 16);
