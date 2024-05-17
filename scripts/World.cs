@@ -11,6 +11,8 @@ public partial class World : Node3D
     private PackedScene houseScene = GD.Load<PackedScene>("res://scenes/house.tscn");
     private PackedScene carScene = GD.Load<PackedScene>("res://scenes/car.tscn");
     private PackedScene trashcanScene = GD.Load<PackedScene>("res://scenes/trashcan.tscn");
+    private PackedScene toiletScene = GD.Load<PackedScene>("res://scenes/toilet.tscn");
+    private PackedScene sofaScene = GD.Load<PackedScene>("res://scenes/sofa.tscn");
     private Player player;
     private AnimationObject crater;
     private AnimationObject intro;
@@ -29,6 +31,8 @@ public partial class World : Node3D
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
         game = GetNode<Game>("/root/Game");
         game.gameOver = false;
+        game.lookEnabled = false;
+        game.movementEnabled = false;
         spawnTimer = GetNode<Timer>("SpawnTimer");
         spawnTimer.Timeout += () => SpawnObstacle();
         player = GetNode<Player>("Player");
@@ -83,6 +87,7 @@ public partial class World : Node3D
             if (spawn is FlyingObject obj)
             {
                 obj.LinearVelocity = new Vector3(0, 0, 0);
+                obj.AngularVelocity = new Vector3(0, 0, 0);
                 obj.anim.Pause();
             }
         }
@@ -104,7 +109,7 @@ public partial class World : Node3D
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
-        switch (rand.RandiRange(0, 2))
+        switch (rand.RandiRange(0, 4))
         {
             case 0:
                 spawn = houseScene.Instantiate<FlyingObject>();
@@ -114,6 +119,12 @@ public partial class World : Node3D
                 break;
             case 2:
                 spawn = carScene.Instantiate<FlyingObject>();
+                break;
+            case 3:
+                spawn = toiletScene.Instantiate<FlyingObject>();
+                break;
+            case 4:
+                spawn = sofaScene.Instantiate<FlyingObject>();
                 break;
         }
         spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1);

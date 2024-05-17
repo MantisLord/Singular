@@ -185,7 +185,7 @@ _data = {
 script = ExtResource("2_fl3qk")
 
 [node name="Skeleton3D" parent="Crater Rig" index="0"]
-bones/2/position = Vector3(-5.592e-16, -79.9763, 0.0373571)
+bones/2/position = Vector3(-1.1184e-15, -79.9763, 0.0373571)
 
 [node name="BlackHole" parent="Crater Rig/Skeleton3D" index="0"]
 transform = Transform3D(2, 0, -1.19209e-07, 0, 2, 0, -1.19209e-07, 0, 2, -5.45318e-08, -86.9617, -4.30567e-08)

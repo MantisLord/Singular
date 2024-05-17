@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cec1wwilhe214"]
 
-[ext_resource type="PackedScene" uid="uid://bdr36mvglcgwv" path="res://models/rat/rat.glb" id="1_smoyh"]
+[ext_resource type="PackedScene" uid="uid://bdr36mvglcgwv" path="res://models/rat.glb" id="1_smoyh"]
 [ext_resource type="Script" path="res://scripts/AnimationObject.cs" id="2_4k03i"]
 
 [sub_resource type="Animation" id="Animation_peya0"]
