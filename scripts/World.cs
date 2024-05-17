@@ -12,7 +12,7 @@ public partial class World : Node3D
     private PackedScene carScene = GD.Load<PackedScene>("res://scenes/car.tscn");
     private PackedScene trashcanScene = GD.Load<PackedScene>("res://scenes/trashcan.tscn");
     private PackedScene toiletScene = GD.Load<PackedScene>("res://scenes/toilet.tscn");
-    private PackedScene sofaScene = GD.Load<PackedScene>("res://scenes/sofa.tscn");
+    private PackedScene sofaScene = GD.Load<PackedScene>("res://scenes/flying_object_sofa.tscn");
     private Player player;
     private AnimationObject crater;
     private AnimationObject intro;
