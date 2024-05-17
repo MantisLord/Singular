@@ -1,85 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://d078l30qfwslt"]
+[gd_scene load_steps=5 format=3 uid="uid://d078l30qfwslt"]
 
 [ext_resource type="Script" path="res://scripts/FlyingObject.cs" id="1_sf51j"]
+[ext_resource type="AnimationLibrary" uid="uid://mfg0cquatxa3" path="res://models/flyingObjectAnim.res" id="2_g4mht"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g8w0b"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3437n"]
 
-[sub_resource type="Animation" id="Animation_14f5b"]
-resource_name = "scaleDown"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(0.001, 0.001, 0.001)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"Despawn"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_b7g8j"]
-resource_name = "scaleUp"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"StartShrink"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4prcw"]
-_data = {
-"scaleDown": SubResource("Animation_14f5b"),
-"scaleUp": SubResource("Animation_b7g8j")
-}
-
-[node name="Block" type="RigidBody3D"]
+[node name="Block" type="RigidBody3D" node_paths=PackedStringArray("CollisionAudio")]
 collision_layer = 2
 collision_mask = 2
+gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 linear_velocity = Vector3(0, 10, 0)
 script = ExtResource("1_sf51j")
 DamageDealt = 5
+CollisionAudio = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
@@ -91,7 +28,7 @@ skeleton = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_4prcw")
+"flyingObjectAnim": ExtResource("2_g4mht")
 }
 
 [connection signal="body_entered" from="." to="." method="Collided"]

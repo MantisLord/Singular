@@ -2,17 +2,23 @@ using Godot;
 
 public partial class FlyingObject : RigidBody3D
 {
+    [Export] public string ObjectName = "FlyingObject";
     [Export] public int DamageDealt = 10;
-    AnimationPlayer anim = new();
+    [Export] public AudioStreamPlayer3D CollisionAudio = new();
+    public AnimationPlayer anim = new();
+    CollisionShape3D collisionShape;
+    Player player;
     public override void _Ready()
     {
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
-        anim.Play("scaleUp");
+        anim.Play($"flyingObjectAnim/scaleUp{(ObjectName == "House" ? "5x" : "")}");
+        collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+        player = GetParent().GetNode<Player>("Player");
     }
 
     private void StartShrink()
     {
-        anim.Play("scaleDown");
+        anim.Play($"flyingObjectAnim/scaleDown{(ObjectName == "House" ? "5x" : "")}");
     }
 
     private void Despawn()
@@ -22,9 +28,9 @@ public partial class FlyingObject : RigidBody3D
 
     private void Collided(Node body)
     {
-        GD.Print($"Hit {body.Name}");
+        GD.Print($"{ObjectName} hit {body.Name}");
         if (body is Player player)
-            player.TakeHit(DamageDealt);
+            player.TakeHit(DamageDealt, CollisionAudio);
     }
 
     public override void _Process(double delta)

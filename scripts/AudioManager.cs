@@ -47,7 +47,7 @@ public partial class AudioManager : Node
         player.Play();
     }
 
-    public void Play(Audio sound, AudioChannel channel = AudioChannel.SFX1, bool await = false)
+    public void Play(Audio sound, AudioChannel channel = AudioChannel.SFX1, bool await = false, int fromPos = 0)
     {
         AudioStream stream = null;
         AudioStreamPlayer currentPlayer = null;
@@ -83,7 +83,7 @@ public partial class AudioManager : Node
                 break;
         }
         currentPlayer.Stream = stream;
-        currentPlayer.Play();
+        currentPlayer.Play(fromPos);
         if (await)
             System.Threading.Thread.Sleep((int)(stream.GetLength() * 1000));
     }

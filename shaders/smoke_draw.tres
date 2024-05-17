@@ -11,5 +11,3 @@ grow_amount = 0.1
 
 [resource]
 material = SubResource("StandardMaterial3D_ndfbw")
-radius = 0.2
-height = 0.4

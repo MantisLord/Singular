@@ -9,12 +9,7 @@ public partial class Player : CharacterBody3D
     private AudioManager audioMgr;
 
     private Label fpsLabel;
-    private Label spawnsLabel;
-
-    private Label debugLabel1;
-    private Label debugLabel2;
-    private Label debugLabel3;
-    private Label debugLabel4;
+    private Button resumeButton;
 
     private const float MOUSE_SENSITIVITY = 0.15f;
     private const float MAX_ANGLE_VIEW = 90f;
@@ -26,55 +21,73 @@ public partial class Player : CharacterBody3D
     private Node3D head;
     private Camera3D cam;
 
-    private Control ingameMenu;
-    private AudioStreamPlayer3D impactHeavyAudioStreamPlayer;
+    private Control menu;
     private AudioStreamPlayer3D gruntAudioStreamPlayer;
+    private World world;
 
     private RandomNumberGenerator rand = new();
 
+    public Label statusLabel;
     public ProgressBar healthProgressBar;
+    public AnimationPlayer anim;
 
     public override void _Ready()
     {
         game = GetNode<Game>("/root/Game");
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
-        fpsLabel = GetNode<Label>("UI/VBoxContainer/FPSLabel");
-        spawnsLabel = GetNode<Label>("UI/VBoxContainer/SpawnsLabel");
-        debugLabel1 = GetNode<Label>("UI/VBoxContainer/DebugLabel");
-        debugLabel2 = GetNode<Label>("UI/VBoxContainer/DebugLabel2");
-        debugLabel3 = GetNode<Label>("UI/VBoxContainer/DebugLabel3");
-        debugLabel4 = GetNode<Label>("UI/VBoxContainer/DebugLabel4");
+        fpsLabel = GetNode<Label>("UI/FPSLabel");
         head = GetNode<Node3D>("Head");
         cam = head.GetNode<Camera3D>("Camera3D");
-        ingameMenu = GetNode<Control>("IngameMenu");
-        healthProgressBar = GetNode<ProgressBar>("UI/VBoxContainer/HBoxContainer/HealthProgressBar");
-        impactHeavyAudioStreamPlayer = GetNode<AudioStreamPlayer3D>("ImpactHeavyAudioStreamPlayer3D");
+        menu = GetNode<PanelContainer>("UI/MenuContainer");
+        healthProgressBar = GetNode<ProgressBar>("UI/MarginContainer/VBoxContainer/HealthProgressBar");
+        statusLabel = GetNode<Label>("UI/MarginContainer/VBoxContainer/StatusLabel");
+        resumeButton = menu.GetNode<Button>("VBoxContainer/ResumeButton");
         gruntAudioStreamPlayer = GetNode<AudioStreamPlayer3D>("GruntAudioStreamPlayer3D");
+        anim = GetNode<AnimationPlayer>("AnimationPlayer");
+        world = GetTree().Root.GetNode<World>("World");
+
+        anim.Play("FovAdjust");
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
         rand.Randomize();
         base._Ready();
     }
 
-    public void TakeHit(int amount)
+    public void TakeHit(int amount, AudioStreamPlayer3D collisionAudio)
     {
         healthProgressBar.Value -= amount;
-        audioMgr.Play(impactHeavyAudioStreamPlayer);
+
+        audioMgr.Play(collisionAudio);
 
         if (rand.RandiRange(0, 1) == 1)
             audioMgr.Play(gruntAudioStreamPlayer);
 
         if (healthProgressBar.Value <= 0)
+        {
+            world.Pause();
             game.EndGame();
+        }
     }
 
-    public void SetNumSpawns(int spawns)
+    public void ToggleIngameMenu()
     {
-        spawnsLabel.Text = "NumSpawns: " + spawns;
+        menu.Visible = !menu.Visible;
+        Input.MouseMode = (menu.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured);
+        if (menu.Visible)
+            Input.WarpMouse(new Vector2(GetViewport().GetVisibleRect().Size.X / 2, GetViewport().GetVisibleRect().Size.Y - 500));
     }
 
     public override void _Process(double delta)
     {
+        if (game.gameOver)
+        {
+            resumeButton.Visible = false;
+            statusLabel.Visible = true;
+            if (!menu.Visible)
+                ToggleIngameMenu();
+            return;
+        }
+
         if (game.camLookBone != null && !game.lookEnabled)
         {
             cam.LookAt(game.camLookBone.GlobalPosition);
@@ -82,15 +95,10 @@ public partial class Player : CharacterBody3D
 
         if (Input.IsActionJustPressed("escape"))
         {
-            ingameMenu.Visible = !ingameMenu.Visible;
-            Input.MouseMode = (ingameMenu.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured);
-            if (ingameMenu.Visible)
-                Input.WarpMouse(new Vector2(GetViewport().GetVisibleRect().Size.X / 2, GetViewport().GetVisibleRect().Size.Y - 500));
+            ToggleIngameMenu();
         }
 
         fpsLabel.Text = $"FPS: {Engine.GetFramesPerSecond()}";
-        debugLabel1.Text = $"Position: {Position}";
-        debugLabel2.Text = $"MoveEnabled: {game.movementEnabled} | LookEnabled: {game.lookEnabled}";
         base._Process(delta);
     }
 

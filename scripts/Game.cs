@@ -6,6 +6,7 @@ public partial class Game : Node
     public bool lookEnabled = false;
     private AudioManager audioMgr;
     public BoneAttachment3D camLookBone;
+    public bool gameOver = false;
     public override void _Ready()
     {
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
@@ -13,9 +14,11 @@ public partial class Game : Node
 
     public void EndGame()
     {
+        gameOver = true;
+        movementEnabled = false;
+        lookEnabled = false;
         Input.MouseMode = Input.MouseModeEnum.Visible;
         audioMgr.Stop();
-        ChangeScene("main_menu");
     }
 
     public void ChangeScene(string sceneName)

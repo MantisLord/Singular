@@ -4,6 +4,7 @@ public partial class AnimationObject : Node3D
 {
     private Game game;
     private World world;
+    public AnimationPlayer anim;
     public override void _Ready()
     {
         game = GetNode<Game>("/root/Game");
@@ -12,12 +13,12 @@ public partial class AnimationObject : Node3D
         {
             game.camLookBone = GetNode<BoneAttachment3D>("Intro Rig/Skeleton3D/TV Screen_2");
         }
+        anim = GetNode<AnimationPlayer>("AnimationPlayer");
         base._Ready();
     }
 
     public void PlayAnimation(string AnimationName, double seekTime = 0)
     {
-        var anim = GetNode<AnimationPlayer>("AnimationPlayer");
         if (seekTime > 0)
             anim.Seek(seekTime);
         anim.Play(AnimationName);
@@ -36,6 +37,11 @@ public partial class AnimationObject : Node3D
     private void IntroDone()
     {
         world.IntroDone();
+    }
+
+    private void StartSpawn()
+    {
+        world.StartSpawn();
     }
 
     public override void _Process(double delta)
