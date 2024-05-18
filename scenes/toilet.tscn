@@ -102,6 +102,7 @@ script = ExtResource("1_sguwx")
 ObjectName = "Toilet"
 DamageDealt = 8
 CollisionAudio = NodePath("AudioStreamPlayer3D")
+Speed = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -0.0162354, 0.82101, -0.159302)

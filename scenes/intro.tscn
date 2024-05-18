@@ -1471,7 +1471,10 @@ bones/27/position = Vector3(2.61182, -1.04706, 0.0353134)
 bones/27/rotation = Quaternion(-1.83354e-09, 1.10595e-09, 2.91038e-11, 1)
 bones/29/position = Vector3(-0.563423, -1.04706, 0.0353128)
 bones/29/rotation = Quaternion(-1.83354e-09, 1.10595e-09, 2.91038e-11, 1)
-bones/31/position = Vector3(2.61182, 0.192722, 0.0353142)
+bones/31/position = Vector3(2.61182, -1.04706, 0.0353134)
+bones/31/rotation = Quaternion(-1.83354e-09, 1.10595e-09, 2.91038e-11, 1)
+bones/33/position = Vector3(-0.563423, -1.04706, 0.0353128)
+bones/33/rotation = Quaternion(-1.83354e-09, 1.10595e-09, 2.91038e-11, 1)
 
 [node name="Wall Ext S -col" parent="Intro Rig/Skeleton3D" index="0"]
 transform = Transform3D(0.151787, 0.000188291, -0.00294982, -0.00484622, 0.0062778, -0.0185539, 0.00237417, 0.000776515, 0.150716, 1.31474, -9.22993, -1.34507)
@@ -1512,17 +1515,20 @@ transform = Transform3D(0.151787, 0.000188291, -0.00294982, -0.00484622, 0.00627
 [node name="Lawn Array" parent="Intro Rig/Skeleton3D" index="11"]
 transform = Transform3D(0.101191, 0.00301265, -0.00196654, -0.00323081, 0.100445, -0.0123693, 0.00158278, 0.0124242, 0.100478, 1.31474, -9.22993, -1.34507)
 
-[node name="TV_2" parent="Intro Rig/Skeleton3D" index="12"]
-transform = Transform3D(0.0505956, 0.00150632, -0.000983272, -0.00161541, 0.0502224, -0.00618465, 0.000791391, 0.00621212, 0.0502388, 1.34446, -9.1646, -1.43146)
+[node name="TV Screen Breaking_2" parent="Intro Rig/Skeleton3D" index="12"]
+transform = Transform3D(0.0101576, 0.000433931, -0.000391869, -0.00032431, 0.0144677, -0.0024648, 0.00015888, 0.00178954, 0.020022, 1.47516, -9.21637, -1.43348)
 
-[node name="TV Stand_2" parent="Intro Rig/Skeleton3D" index="13"]
+[node name="TV Screen Local_2" parent="Intro Rig/Skeleton3D" index="13"]
+transform = Transform3D(0.0101576, 0.000433931, -0.000391869, -0.00032431, 0.0144677, -0.0024648, 0.00015888, 0.00178954, 0.020022, 1.3145, -9.21124, -1.43599)
+
+[node name="TV_2" parent="Intro Rig/Skeleton3D" index="14"]
+transform = Transform3D(0.0101576, 0.000433931, -0.000391869, -0.00032431, 0.0144677, -0.0024648, 0.00015888, 0.00178954, 0.020022, 1.34299, -9.16908, -1.43193)
+
+[node name="TV Stand_2" parent="Intro Rig/Skeleton3D" index="15"]
 transform = Transform3D(0.0505956, 0.00150632, -0.000983272, -0.00161541, 0.0502224, -0.00618465, 0.000791391, 0.00621212, 0.0502388, 1.33857, -9.19727, -1.4356)
 
-[node name="Sofa_2" parent="Intro Rig/Skeleton3D" index="14"]
+[node name="Sofa_2" parent="Intro Rig/Skeleton3D" index="16"]
 transform = Transform3D(0.0505956, 0.00150632, -0.000983272, -0.00161541, 0.0502224, -0.00618465, 0.000791391, 0.00621212, 0.0502388, 1.31474, -9.22993, -1.34507)
-
-[node name="TV Screen_2" parent="Intro Rig/Skeleton3D" index="15"]
-transform = Transform3D(0.0505956, 0.00150632, -0.000983272, -0.00161541, 0.0502224, -0.00618465, 0.000791391, 0.00621212, 0.0502388, 1.34446, -9.1646, -1.43146)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

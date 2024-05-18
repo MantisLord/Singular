@@ -16,7 +16,7 @@ public partial class Player : CharacterBody3D
     private const float MIN_ANGLE_VIEW = -90f;
     private const float SPEED = 13.0f;
     private const float SPEED_ACCEL = 7.0f;
-    private const float SPEED_DECCEL = 0.5f;
+    private const float SPEED_DECCEL = 0.01f;
 
     private Node3D head;
     private Camera3D cam;

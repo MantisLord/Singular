@@ -31,6 +31,7 @@ script = ExtResource("1_0lt2t")
 ObjectName = "Sofa"
 DamageDealt = 7
 CollisionAudio = NodePath("AudioStreamPlayer3D")
+Speed = 0.7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)

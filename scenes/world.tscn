@@ -43,7 +43,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.979
 wait_time = 0.2
 
 [node name="BoundaryParticles" type="GPUParticles3D" parent="."]
-emitting = false
 amount = 9000
 lifetime = 10.0
 visibility_aabb = AABB(-23.4382, -4, -22.1177, 46.8763, 8, 44.2353)
@@ -60,3 +59,6 @@ draw_pass_1 = ExtResource("8_dd1ak")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1000, 0)
+light_color = Color(1, 0.901961, 0.701961, 1)
+light_energy = 0.75
+light_indirect_energy = 0.75

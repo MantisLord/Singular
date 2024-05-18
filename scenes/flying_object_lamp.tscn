@@ -32,6 +32,7 @@ script = ExtResource("1_f3n0a")
 ObjectName = "Lamp"
 DamageDealt = 9
 CollisionAudio = NodePath("AudioStreamPlayer3D")
+Speed = 0.65
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

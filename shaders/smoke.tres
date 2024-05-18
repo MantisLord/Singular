@@ -14,17 +14,16 @@ point_count = 3
 curve = SubResource("Curve_l6cbq")
 
 [resource]
-emission_shape_offset = Vector3(0, -60, 0)
+emission_shape_offset = Vector3(0, 90, 0)
 emission_shape = 6
 emission_ring_axis = Vector3(0, 1, 0)
 emission_ring_height = 0.0
 emission_ring_radius = 20.0
 emission_ring_inner_radius = 20.0
-direction = Vector3(0, -1, 0)
+direction = Vector3(0, 1, 0)
 spread = 0.0
 initial_velocity_min = 2.0
 initial_velocity_max = 2.0
-gravity = Vector3(0, 9.8, 0)
 scale_min = 0.0
 scale_max = 0.5
 scale_curve = SubResource("CurveTexture_bvq6y")

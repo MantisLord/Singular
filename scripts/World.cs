@@ -119,6 +119,9 @@ public partial class World : Node3D
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
+
+        bool topSpawn = false;
+
         switch (rand.RandiRange(0, 5))
         {
             case 0:
@@ -126,6 +129,7 @@ public partial class World : Node3D
                 break;
             case 1:
                 spawn = trashcanScene.Instantiate<FlyingObject>();
+                //topSpawn = true;
                 break;
             case 2:
                 spawn = carScene.Instantiate<FlyingObject>();
@@ -140,17 +144,23 @@ public partial class World : Node3D
                 spawn = lampScene.Instantiate<FlyingObject>();
                 break;
         }
-        spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1);
+
+        if (topSpawn)
+        {
+            spawn.LinearVelocity = -spawn.LinearVelocity;
+        }
+
+        spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1, topSpawn);
         spawn.RotationDegrees = new Vector3(rand.RandfRange(-180, 180), rand.RandfRange(-180, 180), rand.RandfRange(-180, 180));
         spawn.AngularVelocity = new Vector3(rand.RandfRange(-0.5f, 0.5f), rand.RandfRange(-0.5f, 0.5f), rand.RandfRange(-0.5f, 0.5f));
 
         AddChild(spawn);
     }
 
-    private Vector3 GetRandomPosOverFloor(bool relationToPlayer)
+    private Vector3 GetRandomPosOverFloor(bool relationToPlayer, bool topSpawn)
     {
         float X, Y, Z;
-        Y = SPAWN_HEIGHT;
+        Y = topSpawn ? -SPAWN_HEIGHT : SPAWN_HEIGHT;
         if (relationToPlayer)
         {
             X = player.Position.X + rand.RandfRange(-SPAWN_RADIUS_AROUND_PLAYER, SPAWN_RADIUS_AROUND_PLAYER);

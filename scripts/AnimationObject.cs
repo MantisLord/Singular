@@ -11,7 +11,7 @@ public partial class AnimationObject : Node3D
         world = GetTree().Root.GetNode<World>("World");
         if (Name == "Intro")
         {
-            game.camLookBone = GetNode<BoneAttachment3D>("Intro Rig/Skeleton3D/TV Screen_2");
+            game.camLookBone = GetNode<BoneAttachment3D>("Intro Rig/Skeleton3D/TV_2");
         }
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         base._Ready();
