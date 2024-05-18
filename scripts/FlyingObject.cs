@@ -12,14 +12,9 @@ public partial class FlyingObject : RigidBody3D
     public override void _Ready()
     {
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
-
-
         anim.SpeedScale = Speed;
         LinearVelocity = new Vector3(0, LinearVelocity.Y * Speed, 0);
-        
         anim.Play($"flyingObjectAnim/scaleUp{(ObjectName == "House" ? "5x" : "")}");
-        
-        
         collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
         player = GetParent().GetNode<Player>("Player");
     }

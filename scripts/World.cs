@@ -23,6 +23,7 @@ public partial class World : Node3D
     private AudioManager audioMgr;
     private Game game;
     private GpuParticles3D boundaryParticles;
+    private ColorRect uiCover;
 
     private const float SPAWN_HEIGHT = -30;
     private const float SPAWN_RADIUS_AROUND_PLAYER = 5;
@@ -31,12 +32,12 @@ public partial class World : Node3D
     {
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
         game = GetNode<Game>("/root/Game");
-        game.gameOver = false;
         game.lookEnabled = false;
         game.movementEnabled = false;
         spawnTimer = GetNode<Timer>("SpawnTimer");
         spawnTimer.Timeout += () => SpawnObstacle();
         player = GetNode<Player>("Player");
+        uiCover = player.GetNode<ColorRect>("UI/ColorRect");
         crater = GetNode<AnimationObject>("Crater");
         intro = GetNode<AnimationObject>("Intro");
         town = GetNode<AnimationObject>("Town");
@@ -61,12 +62,10 @@ public partial class World : Node3D
             if (spawn is FlyingObject obj)
                 obj.QueueFree();
         }
-        game.gameOver = false;
         game.movementEnabled = true;
         boundaryParticles.Emitting = true;
         game.lookEnabled = true;
         player.healthProgressBar.Value = 100;
-        player.statusLabel.Visible = false;
         audioMgr.Stop();
         intro.PlayAnimation("ArmatureAction", 64);
 
@@ -76,8 +75,9 @@ public partial class World : Node3D
         audioMgr.Play(Audio.GameMusic, AudioChannel.Music, false, 64-52);
     }
 
-    public void Pause()
+    public void Died()
     {
+        audioMgr.Stop();
         crater.anim.Pause();
         islands.anim.Pause();
         town.anim.Pause();
@@ -92,6 +92,12 @@ public partial class World : Node3D
                 obj.anim.Pause();
             }
         }
+
+        game.movementEnabled = false;
+        game.lookEnabled = false;
+        player.resumeButton.Visible = false;
+        if (!player.menu.Visible)
+            player.ToggleIngameMenu();
     }
 
     public void StartGameAnims()
@@ -116,11 +122,19 @@ public partial class World : Node3D
         spawnTimer.Start();
     }
 
+    public void StopSpawn()
+    {
+        spawnTimer.Stop();
+    }
+
+    public void Won()
+    {
+        player.anim.Play("FadeToWhite");
+    }
+
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
-
-        bool topSpawn = false;
 
         switch (rand.RandiRange(0, 5))
         {
@@ -129,7 +143,6 @@ public partial class World : Node3D
                 break;
             case 1:
                 spawn = trashcanScene.Instantiate<FlyingObject>();
-                //topSpawn = true;
                 break;
             case 2:
                 spawn = carScene.Instantiate<FlyingObject>();
@@ -145,22 +158,17 @@ public partial class World : Node3D
                 break;
         }
 
-        if (topSpawn)
-        {
-            spawn.LinearVelocity = -spawn.LinearVelocity;
-        }
-
-        spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1, topSpawn);
+        spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1);
         spawn.RotationDegrees = new Vector3(rand.RandfRange(-180, 180), rand.RandfRange(-180, 180), rand.RandfRange(-180, 180));
         spawn.AngularVelocity = new Vector3(rand.RandfRange(-0.5f, 0.5f), rand.RandfRange(-0.5f, 0.5f), rand.RandfRange(-0.5f, 0.5f));
 
         AddChild(spawn);
     }
 
-    private Vector3 GetRandomPosOverFloor(bool relationToPlayer, bool topSpawn)
+    private Vector3 GetRandomPosOverFloor(bool relationToPlayer)
     {
         float X, Y, Z;
-        Y = topSpawn ? -SPAWN_HEIGHT : SPAWN_HEIGHT;
+        Y = SPAWN_HEIGHT;
         if (relationToPlayer)
         {
             X = player.Position.X + rand.RandfRange(-SPAWN_RADIUS_AROUND_PLAYER, SPAWN_RADIUS_AROUND_PLAYER);

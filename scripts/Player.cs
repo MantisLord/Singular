@@ -9,7 +9,6 @@ public partial class Player : CharacterBody3D
     private AudioManager audioMgr;
 
     private Label fpsLabel;
-    private Button resumeButton;
 
     private const float MOUSE_SENSITIVITY = 0.15f;
     private const float MAX_ANGLE_VIEW = 90f;
@@ -21,12 +20,13 @@ public partial class Player : CharacterBody3D
     private Node3D head;
     private Camera3D cam;
 
-    private Control menu;
     private AudioStreamPlayer3D gruntAudioStreamPlayer;
     private World world;
 
     private RandomNumberGenerator rand = new();
 
+    public Button resumeButton;
+    public Control menu;
     public Label statusLabel;
     public ProgressBar healthProgressBar;
     public AnimationPlayer anim;
@@ -40,7 +40,6 @@ public partial class Player : CharacterBody3D
         cam = head.GetNode<Camera3D>("Camera3D");
         menu = GetNode<PanelContainer>("UI/MenuContainer");
         healthProgressBar = GetNode<ProgressBar>("UI/MarginContainer/VBoxContainer/HealthProgressBar");
-        statusLabel = GetNode<Label>("UI/MarginContainer/VBoxContainer/StatusLabel");
         resumeButton = menu.GetNode<Button>("VBoxContainer/ResumeButton");
         gruntAudioStreamPlayer = GetNode<AudioStreamPlayer3D>("GruntAudioStreamPlayer3D");
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -64,8 +63,7 @@ public partial class Player : CharacterBody3D
 
         if (healthProgressBar.Value <= 0)
         {
-            world.Pause();
-            game.EndGame();
+            world.Died();
         }
     }
 
@@ -79,15 +77,6 @@ public partial class Player : CharacterBody3D
 
     public override void _Process(double delta)
     {
-        if (game.gameOver)
-        {
-            resumeButton.Visible = false;
-            statusLabel.Visible = true;
-            if (!menu.Visible)
-                ToggleIngameMenu();
-            return;
-        }
-
         if (game.camLookBone != null && !game.lookEnabled)
         {
             cam.LookAt(game.camLookBone.GlobalPosition);

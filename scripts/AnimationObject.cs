@@ -44,9 +44,13 @@ public partial class AnimationObject : Node3D
     {
         world.StartSpawn();
     }
+    private void StopSpawn()
+    {
+        world.StopSpawn();
+    }
     private void BlackHoleReachedPlayer()
     {
-        game.EndGame();
+        world.Won();
     }
 
     public override void _Process(double delta)
