@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnr058fs4jjwx"]
+[gd_scene load_steps=23 format=3 uid="uid://cnr058fs4jjwx"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_qytub"]
 [ext_resource type="Script" path="res://scripts/IngameMenu.cs" id="2_uovca"]
@@ -110,9 +110,76 @@ tracks/0/keys = {
 "values": [45.0, 75.0]
 }
 
+[sub_resource type="Animation" id="Animation_887qw"]
+resource_name = "FadeInStatusAndMenu"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/MarginContainer/VBoxContainer/StatusLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/MenuContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MarginContainer/VBoxContainer/StatusLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/MenuContainer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ToggleMouseControl"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kix7y"]
 _data = {
 "EaseInHP": SubResource("Animation_lex2d"),
+"FadeInStatusAndMenu": SubResource("Animation_887qw"),
 "FadeToWhite": SubResource("Animation_lfu0j"),
 "FovAdjust": SubResource("Animation_gxsoq")
 }
@@ -164,6 +231,12 @@ theme_override_styles/background = SubResource("StyleBoxFlat_1vd3f")
 theme_override_styles/fill = SubResource("StyleBoxFlat_oa7pd")
 value = 100.0
 show_percentage = false
+
+[node name="StatusLabel" type="Label" parent="UI/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Status"
+horizontal_alignment = 1
 
 [node name="FPSLabel" type="Label" parent="UI"]
 layout_mode = 1

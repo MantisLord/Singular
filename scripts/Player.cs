@@ -5,12 +5,6 @@ public partial class Player : CharacterBody3D
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
-    private Game game;
-    private AudioManager audioMgr;
-
-    private Label fpsLabel;
-    private Label debugLabel;
-
     private const float MOUSE_SENSITIVITY = 0.15f;
     private const float MAX_ANGLE_VIEW = 90f;
     private const float MIN_ANGLE_VIEW = -90f;
@@ -18,12 +12,13 @@ public partial class Player : CharacterBody3D
     private const float SPEED_ACCEL = 1f;
     private const float SPEED_DECCEL = 0.02f;
 
+    private Game game;
+    private AudioManager audioMgr;
+    private Label fpsLabel;
+    private Label debugLabel;
     private Node3D head;
-    private Camera3D cam;
-
     private AudioStreamPlayer3D gruntAudioStreamPlayer;
     private World world;
-
     private RandomNumberGenerator rand = new();
 
     public Button resumeButton;
@@ -31,6 +26,7 @@ public partial class Player : CharacterBody3D
     public Label statusLabel;
     public ProgressBar healthProgressBar;
     public AnimationPlayer anim;
+    public Camera3D cam;
 
     public override void _Ready()
     {
@@ -38,6 +34,7 @@ public partial class Player : CharacterBody3D
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
         fpsLabel = GetNode<Label>("UI/FPSLabel");
         debugLabel = GetNode<Label>("UI/DebugLabel");
+        statusLabel = GetNode<Label>("UI/MarginContainer/VBoxContainer/StatusLabel");
         head = GetNode<Node3D>("Head");
         cam = head.GetNode<Camera3D>("Camera3D");
         menu = GetNode<PanelContainer>("UI/MenuContainer");
@@ -54,8 +51,11 @@ public partial class Player : CharacterBody3D
         base._Ready();
     }
 
-    public void TakeHit(int amount, AudioStreamPlayer3D collisionAudio)
+    public void TakeHit(int amount, AudioStreamPlayer3D collisionAudio, string colliderName)
     {
+        if (game.gameOver)
+            return;
+
         healthProgressBar.Value -= amount;
 
         audioMgr.Play(collisionAudio);
@@ -65,13 +65,18 @@ public partial class Player : CharacterBody3D
 
         if (healthProgressBar.Value <= 0)
         {
-            world.Died();
+            world.Died(colliderName);
         }
     }
 
     public void ToggleIngameMenu()
     {
         menu.Visible = !menu.Visible;
+        ToggleMouseControl();
+    }
+
+    public void ToggleMouseControl()
+    {
         Input.MouseMode = (menu.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured);
         if (menu.Visible)
             Input.WarpMouse(new Vector2(GetViewport().GetVisibleRect().Size.X / 2, GetViewport().GetVisibleRect().Size.Y - 500));

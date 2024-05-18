@@ -33,7 +33,7 @@ public partial class FlyingObject : RigidBody3D
     {
         GD.Print($"{ObjectName} hit {body.Name}");
         if (body is Player player)
-            player.TakeHit(DamageDealt, CollisionAudio);
+            player.TakeHit(DamageDealt, CollisionAudio, ObjectName);
     }
 
     public override void _Process(double delta)

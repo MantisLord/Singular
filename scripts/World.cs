@@ -1,12 +1,10 @@
 using Godot;
-using System.Linq;
+using static Game;
 using static AudioManager;
 
 public partial class World : Node3D
 {
     private Timer spawnTimer;
-    private Timer houseTimer;
-    private Timer holeExpandTimer;
     private PackedScene blockScene = GD.Load<PackedScene>("res://scenes/block.tscn");
     private PackedScene houseScene = GD.Load<PackedScene>("res://scenes/flying_object_house.tscn");
     private PackedScene carScene = GD.Load<PackedScene>("res://scenes/car.tscn");
@@ -19,15 +17,35 @@ public partial class World : Node3D
     private AnimationObject intro;
     private AnimationObject town;
     private AnimationObject islands;
+    private AnimationObject rat;
     private RandomNumberGenerator rand;
     private AudioManager audioMgr;
     private Game game;
     private GpuParticles3D boundaryParticles;
     private ColorRect uiCover;
+    private DirectionalLight3D light;
+    private WorldEnvironment worldEnv;
 
-    private const float SPAWN_HEIGHT = -30;
-    private const float SPAWN_RADIUS_AROUND_PLAYER = 5;
-    private const float SPAWN_RADIUS_PLAY_AREA = 20;
+    private float spawnHeight = -30;
+    private float spawnRadiusAroundPlayer = 5;
+    private float spawnRadiusPlayArea = 20;
+    private double spawnTime = 0.2f;
+    private Vector3 playerStartPos = new(-2, 1, -2);
+
+    private const float RESTART_INTRO_TIME = 64;
+
+    private const string INTRO_ANIM_NAME = "ArmatureAction";
+    private const string ISLANDS_ANIM_NAME = "Island RigAction_001";
+    private const string TOWN_ANIM_NAME = "ArmatureAction_002";
+    private const string CRATER_ANIM_NAME = "Crater RigAction";
+
+    private const string HEALTHBAR_ANIM_NAME = "EaseInHP";
+    private const string FADEWHITE_ANIM_NAME = "FadeToWhite";
+    private const string FADEINMENU_ANIM_NAME = "FadeInStatusAndMenu";
+
+    private const string RAT_IDLE_ANIM_NAME = "Idle";
+    private const string RAT_DIE_ANIM_NAME = "Death";
+
     public override void _Ready()
     {
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
@@ -35,21 +53,27 @@ public partial class World : Node3D
         game.lookEnabled = false;
         game.movementEnabled = false;
         game.gameOver = false;
+        game.won = false;
         spawnTimer = GetNode<Timer>("SpawnTimer");
         spawnTimer.Timeout += () => SpawnObstacle();
+        spawnTimer.WaitTime = spawnTime;
+
         player = GetNode<Player>("Player");
         uiCover = player.GetNode<ColorRect>("UI/ColorRect");
         crater = GetNode<AnimationObject>("Crater");
         intro = GetNode<AnimationObject>("Intro");
         town = GetNode<AnimationObject>("Town");
         islands = GetNode<AnimationObject>("Islands");
+        rat = GetNode<AnimationObject>("Rat");
         rand = new RandomNumberGenerator();
         boundaryParticles = GetNode<GpuParticles3D>("BoundaryParticles");
+        light = GetNode<DirectionalLight3D>("DirectionalLight3D");
+        worldEnv = GetNode<WorldEnvironment>("WorldEnvironment");
 
         audioMgr.Play(Audio.Opening, AudioChannel.Ambient);
-        intro.PlayAnimation("ArmatureAction");
-        islands.PlayAnimation("Island RigAction_001");
-        town.PlayAnimation("ArmatureAction_002");
+        intro.PlayAnimation(INTRO_ANIM_NAME);
+        islands.PlayAnimation(ISLANDS_ANIM_NAME);
+        town.PlayAnimation(TOWN_ANIM_NAME);
     }
 
     public override void _Process(double delta)
@@ -58,111 +82,166 @@ public partial class World : Node3D
 
     public void Restart()
     {
-        foreach (Node spawn in GetChildren())
-        {
-            if (spawn is FlyingObject obj)
-                obj.QueueFree();
-        }
+        DespawnFlyingObjects();
+        intro.Visible = true;
+        crater.Visible = true;
+        town.Visible = true;
+        islands.Visible = true;
+        boundaryParticles.Visible = true;
         game.movementEnabled = true;
-        boundaryParticles.Emitting = true;
         game.lookEnabled = true;
         game.gameOver = false;
+        game.won = false;
+        boundaryParticles.Emitting = true;
+        player.statusLabel.Visible = true;
         player.healthProgressBar.Value = 100;
+        player.Position = playerStartPos;
+        spawnTimer.Stop();
+        spawnTimer.WaitTime = spawnTime;
+        worldEnv.Environment.BackgroundEnergyMultiplier = 1;
         audioMgr.Stop();
-        intro.PlayAnimation("ArmatureAction", 64);
-
-        crater.PlayAnimation("Crater RigAction", 64+8);
-        islands.PlayAnimation("Island RigAction_001", 64+8);
-        town.PlayAnimation("ArmatureAction_002", 64+8);
-        audioMgr.Play(Audio.GameMusic, AudioChannel.Music, false, 64-52);
+        intro.PlayAnimation(INTRO_ANIM_NAME, RESTART_INTRO_TIME);
+        islands.PlayAnimation(ISLANDS_ANIM_NAME, RESTART_INTRO_TIME);
+        town.PlayAnimation(TOWN_ANIM_NAME, RESTART_INTRO_TIME);
+        crater.PlayAnimation(CRATER_ANIM_NAME, RESTART_INTRO_TIME - 8);
+        // game music starts at 52 into intro, so at 64 restart time, it would have been running for 12 seconds (64-52=12)
+        audioMgr.Play(Audio.GameMusic, AudioChannel.Music, false, (int)RESTART_INTRO_TIME - 52);
     }
 
-    public void Died()
+    private void DespawnFlyingObjects()
     {
-        audioMgr.Stop();
+        foreach (Node spawn in GetChildren())
+            if (spawn is FlyingObject)
+                spawn.QueueFree();
+    }
+
+    private void HideWorld()
+    {
         crater.anim.Pause();
         islands.anim.Pause();
         town.anim.Pause();
-        spawnTimer.Stop();
 
-        foreach (Node spawn in GetChildren())
-        {
-            if (spawn is FlyingObject obj)
-            {
-                obj.LinearVelocity = Vector3.Zero;
-                obj.AngularVelocity = Vector3.Zero;
-                obj.anim.Pause();
-            }
-        }
+        Tween getDark = CreateTween();
+        //getDark.TweenProperty(light, "light_energy", 0, 10);
+        getDark.TweenProperty(worldEnv.Environment, "background_energy_multiplier", 0, 3);
+        getDark.Play();
+
+        intro.Visible = false;
+        crater.Visible = false;
+        town.Visible = false;
+        islands.Visible = false;
+        boundaryParticles.Visible = false;
+        boundaryParticles.Emitting = false;
+    }
+
+    public async void EasterEgg()
+    {
+        if (player.menu.Visible)
+            player.ToggleIngameMenu();
+        DespawnFlyingObjects();
+        HideWorld();
+        audioMgr.StopBG();
+        spawnTimer.Stop();
+        rat.Visible = true;
+        player.Position = playerStartPos;
+        player.cam.LookAt(rat.GlobalPosition);
+        game.movementEnabled = false;
+        game.lookEnabled = false;
+        game.gameOver = true;
         player.Velocity = Vector3.Zero;
+
+        rat.PlayAnimation(RAT_IDLE_ANIM_NAME);
+        await ToSignal(GetTree().CreateTimer(2), SceneTreeTimer.SignalName.Timeout);
+        rat.PlayAnimation(RAT_DIE_ANIM_NAME);
+        await ToSignal(GetTree().CreateTimer(3), SceneTreeTimer.SignalName.Timeout);
+
+        System.Environment.Exit(1);
+    }
+
+    public void Died(string colliderName)
+    {
+        if (player.menu.Visible)
+            player.ToggleIngameMenu();
+        DespawnFlyingObjects();
+        HideWorld();
+        audioMgr.StopBG();
+        spawnTimer.WaitTime = spawnTime / 2;
+        player.Velocity = Vector3.Zero;
+        player.cam.LookAt(new Vector3(player.Position.X, -100, player.Position.Z));
+        player.statusLabel.Text = $"You were killed by a {colliderName}. Would you like to restart?";
+        player.anim.Play(FADEINMENU_ANIM_NAME);
 
         game.movementEnabled = false;
         game.lookEnabled = false;
         player.resumeButton.Visible = false;
         game.gameOver = true;
-        if (!player.menu.Visible)
-            player.ToggleIngameMenu();
     }
 
+    // Intro Anim Events
     public void StartGameAnims()
     {
-        crater.PlayAnimation("Crater RigAction");
+        crater.PlayAnimation(CRATER_ANIM_NAME);
     }
-
     public void StartGameMusic()
     {
         audioMgr.Play(Audio.GameMusic, AudioChannel.Music);
     }
-    
     public void GainControl()
     {
         game.movementEnabled = true;
         boundaryParticles.Emitting = true;
-        player.anim.Play("EaseInHP");
+        player.anim.Play(HEALTHBAR_ANIM_NAME);
     }
-
     public void StartSpawn()
     {
         spawnTimer.Start();
     }
 
+    // Crater Anim Events
     public void StopSpawn()
     {
         spawnTimer.Stop();
     }
-
     public void Won()
     {
-        player.anim.Play("FadeToWhite");
+        player.anim.Play(FADEWHITE_ANIM_NAME);
     }
 
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
+        FlyingObjectName chosenObject = (FlyingObjectName)rand.RandiRange(0, 5);
+        bool relationToPlayer = rand.RandiRange(0, 1) == 1;
 
-        switch (rand.RandiRange(0, 5))
+        if (game.gameOver && !game.won)
         {
-            case 0:
+            chosenObject = FlyingObjectName.Toilet; // toilets only, you lost
+            relationToPlayer = true;
+        }
+
+        switch (chosenObject)
+        {
+            case FlyingObjectName.House:
                 spawn = houseScene.Instantiate<FlyingObject>();
                 break;
-            case 1:
-                spawn = trashcanScene.Instantiate<FlyingObject>();
-                break;
-            case 2:
+            case FlyingObjectName.Car:
                 spawn = carScene.Instantiate<FlyingObject>();
                 break;
-            case 3:
-                spawn = toiletScene.Instantiate<FlyingObject>();
-                break;
-            case 4:
+            case FlyingObjectName.Sofa:
                 spawn = sofaScene.Instantiate<FlyingObject>();
                 break;
-            case 5:
+            case FlyingObjectName.Lamp:
                 spawn = lampScene.Instantiate<FlyingObject>();
+                break;
+            case FlyingObjectName.Toilet:
+                spawn = toiletScene.Instantiate<FlyingObject>();
+                break;
+            case FlyingObjectName.TrashCan:
+                spawn = trashcanScene.Instantiate<FlyingObject>();
                 break;
         }
 
-        spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1);
+        spawn.Position = GetRandomPosOverFloor(relationToPlayer);
         spawn.RotationDegrees = new Vector3(rand.RandfRange(-180, 180), rand.RandfRange(-180, 180), rand.RandfRange(-180, 180));
         spawn.AngularVelocity = new Vector3(rand.RandfRange(-0.5f, 0.5f), rand.RandfRange(-0.5f, 0.5f), rand.RandfRange(-0.5f, 0.5f));
 
@@ -172,16 +251,16 @@ public partial class World : Node3D
     private Vector3 GetRandomPosOverFloor(bool relationToPlayer)
     {
         float X, Y, Z;
-        Y = SPAWN_HEIGHT;
+        Y = spawnHeight;
         if (relationToPlayer)
         {
-            X = player.Position.X + rand.RandfRange(-SPAWN_RADIUS_AROUND_PLAYER, SPAWN_RADIUS_AROUND_PLAYER);
-            Z = player.Position.Z + rand.RandfRange(-SPAWN_RADIUS_AROUND_PLAYER, SPAWN_RADIUS_AROUND_PLAYER);
+            X = player.Position.X + rand.RandfRange(-spawnRadiusAroundPlayer, spawnRadiusAroundPlayer);
+            Z = player.Position.Z + rand.RandfRange(-spawnRadiusAroundPlayer, spawnRadiusAroundPlayer);
         }
         else
         {
-            X = rand.RandfRange(-SPAWN_RADIUS_PLAY_AREA, SPAWN_RADIUS_PLAY_AREA);
-            Z = rand.RandfRange(-SPAWN_RADIUS_PLAY_AREA, SPAWN_RADIUS_PLAY_AREA);
+            X = rand.RandfRange(-spawnRadiusPlayArea, spawnRadiusPlayArea);
+            Z = rand.RandfRange(-spawnRadiusPlayArea, spawnRadiusPlayArea);
         }
         return new(X, Y, Z);
     }

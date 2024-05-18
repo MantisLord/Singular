@@ -97,6 +97,12 @@ public partial class AudioManager : Node
         musicStreamPlayer.Stop();
     }
 
+    public void StopBG()
+    {
+        ambienceStreamPlayer.Stop();
+        musicStreamPlayer.Stop();
+    }
+
     public bool IsMusicPlaying()
     {
         return musicStreamPlayer.Playing;

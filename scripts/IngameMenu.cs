@@ -33,9 +33,9 @@ public partial class IngameMenu : Control
         menu.Visible = false;
     }
 
-    private static void ExitButtonPressed()
+    private void ExitButtonPressed()
     {
-        System.Environment.Exit(1);
+        world.EasterEgg();
     }
 
     public override void _Process(double delta)
