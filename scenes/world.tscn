@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cg3m5qnyxjev4"]
+[gd_scene load_steps=16 format=3 uid="uid://cg3m5qnyxjev4"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_vtg0a"]
 [ext_resource type="PackedScene" uid="uid://cnr058fs4jjwx" path="res://scenes/player.tscn" id="2_ck5yq"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dhci2eah1inul" path="res://scenes/crater.tscn" id="8_hie8l"]
 [ext_resource type="PackedScene" uid="uid://djbycwa2jb7al" path="res://scenes/islands.tscn" id="9_5w7jq"]
 [ext_resource type="PackedScene" uid="uid://cec1wwilhe214" path="res://scenes/rat.tscn" id="11_wll80"]
+[ext_resource type="PackedScene" uid="uid://rhxua1di0gx7" path="res://scenes/outro.tscn" id="12_7u55c"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jmpsw"]
 panorama = ExtResource("3_wsu2m")
@@ -67,4 +68,7 @@ light_indirect_energy = 0.75
 
 [node name="Rat" parent="." instance=ExtResource("11_wll80")]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)
+visible = false
+
+[node name="Outro" parent="." instance=ExtResource("12_7u55c")]
 visible = false

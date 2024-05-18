@@ -27,6 +27,7 @@ public partial class Player : CharacterBody3D
     public ProgressBar healthProgressBar;
     public AnimationPlayer anim;
     public Camera3D cam;
+    public ColorRect colorRect;
 
     public override void _Ready()
     {
@@ -43,6 +44,7 @@ public partial class Player : CharacterBody3D
         gruntAudioStreamPlayer = GetNode<AudioStreamPlayer3D>("GruntAudioStreamPlayer3D");
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         world = GetTree().Root.GetNode<World>("World");
+        colorRect = GetNode<ColorRect>("UI/ColorRect");
 
         anim.Play("FovAdjust");
 
@@ -85,7 +87,11 @@ public partial class Player : CharacterBody3D
     public override void _Process(double delta)
     {
         if (game.gameOver)
+        {
+            if (game.camLookBoneOutro != null && game.outroPlaying)
+                cam.LookAt(game.camLookBoneOutro.GlobalPosition);
             return;
+        }
 
         if (game.camLookBone != null && !game.lookEnabled)
         {

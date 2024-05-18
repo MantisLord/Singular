@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://rhxua1di0gx7"]
+
+[ext_resource type="PackedScene" uid="uid://b0xuvxnq4mrgr" path="res://models/Outro.glb" id="1_3kokm"]
+[ext_resource type="Script" path="res://scripts/AnimationObject.cs" id="2_8xids"]
+
+[node name="Outro" instance=ExtResource("1_3kokm")]
+script = ExtResource("2_8xids")
+
+[node name="Skeleton3D" parent="House Rig" index="0"]
+bones/0/position = Vector3(-2.0927, 0.999221, -1.89755)
+bones/0/rotation = Quaternion(0.000734997, -0.000105217, -0.000185083, 1)
+bones/0/scale = Vector3(0.999711, 0.999711, 0.999711)
+bones/23/position = Vector3(2.09296, -4.16497, 1.8976)
+bones/26/position = Vector3(-4.76837e-07, 0.104664, 2.38419e-06)
+bones/28/position = Vector3(-0.00180316, 0.104641, 2.94344e-08)
+bones/33/position = Vector3(-0.563221, -1.04564, 0.212186)
+
+[node name="Wall Ext S -col" parent="House Rig/Skeleton3D" index="0"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112122, -0.00406874, -0.00154305)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Wall Ext S -col/Wall Ext S " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Floor -col" parent="House Rig/Skeleton3D" index="1"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112134, -0.00405347, -0.00154406)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Floor -col/Floor " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Wall Ext N -col" parent="House Rig/Skeleton3D" index="2"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112123, -0.00405352, -0.00154519)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Wall Ext N -col/Wall Ext N " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Wall Ext E -col" parent="House Rig/Skeleton3D" index="3"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112104, -0.00403837, -0.00154307)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Wall Ext E -col/Wall Ext E " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Wall Ext W -col" parent="House Rig/Skeleton3D" index="4"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112462, -0.00406894, -0.00154225)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Wall Ext W -col/Wall Ext W " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Roof Base -col" parent="House Rig/Skeleton3D" index="5"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112533, -0.00405359, -0.00154452)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Roof Base -col/Roof Base " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Roof -col" parent="House Rig/Skeleton3D" index="6"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000663526, -0.00111065, 0.124964, -0.00462901, 0.000630298, 0.0001837, 3.14909, -0.00111961, -0.00405359, -0.00154112)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Roof -col/Roof " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Wall Int -col" parent="House Rig/Skeleton3D" index="7"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112391, -0.00405386, -0.00154163)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Wall Int -col/Wall Int " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Door N -col" parent="House Rig/Skeleton3D" index="8"]
+transform = Transform3D(2.99913, 4.62383e-05, -0.000631934, -0.00111065, 0.124964, -0.0044086, 0.000630301, 0.000183701, 2.99913, -0.00111985, -0.00406917, -0.00154245)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Door N -col/Door N " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Door S -col" parent="House Rig/Skeleton3D" index="9"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00111985, -0.00406919, -0.00154138)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Door S -col/Door S " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Wall Int_001 -col" parent="House Rig/Skeleton3D" index="10"]
+transform = Transform3D(2.99913, 4.62384e-05, -0.000631931, -0.00111065, 0.124964, -0.0044086, 0.000630299, 0.000183701, 2.99913, -0.00112164, -0.0040537, -0.00154132)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/Wall Int_001 -col/Wall Int_001 " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Lawn Array" parent="House Rig/Skeleton3D" index="11"]
+transform = Transform3D(1.99942, 0.00073981, -0.000421285, -0.000740429, 1.99942, -0.00293905, 0.000420197, 0.00293921, 1.99942, -0.00118565, -0.168952, -0.00178168)
+
+[node name="TV Screen Blank_2" parent="House Rig/Skeleton3D" index="12"]
+transform = Transform3D(0.999711, 0.000369905, -0.000210643, -0.000370214, 0.99971, -0.00146953, 0.000210099, 0.0014696, 0.99971, 0.300866, 1.01422, -1.93194)
+
+[node name="TV Screen Local_2" parent="House Rig/Skeleton3D" index="13"]
+transform = Transform3D(0.999711, 0.000369905, -0.000210643, -0.000370214, 0.99971, -0.00146953, 0.000210099, 0.0014696, 0.99971, 0.308859, 1.01421, -1.93194)
+
+[node name="TV -col" parent="House Rig/Skeleton3D" index="14"]
+transform = Transform3D(0.999711, 0.000369905, -0.000210643, -0.000370214, 0.99971, -0.00146953, 0.000210099, 0.0014696, 0.99971, 0.384308, 1.18665, -1.71498)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/TV -col/TV " index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="TV Stand-col" parent="House Rig/Skeleton3D" index="15"]
+transform = Transform3D(0.999711, 0.000369905, -0.000210643, -0.000370214, 0.99971, -0.00146953, 0.000210099, 0.0014696, 0.99971, 0.421146, 0.433019, -1.86255)
+
+[node name="StaticBody3D" parent="House Rig/Skeleton3D/TV Stand-col/TV Stand" index="0"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Sofa_2" parent="House Rig/Skeleton3D" index="16"]
+transform = Transform3D(0.999711, 0.000369905, -0.000210643, -0.000370214, 0.99971, -0.00146953, 0.000210099, 0.0014696, 0.99971, -2.3865, 0.525312, -1.48907)

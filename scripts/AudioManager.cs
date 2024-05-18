@@ -7,7 +7,7 @@ public partial class AudioManager : Node
     AudioStreamPlayer sfxStreamPlayer3 = new();
     AudioStreamPlayer ambienceStreamPlayer = new();
     AudioStreamPlayer musicStreamPlayer = new();
-    AudioStream asOpening, asGame, asClosing;
+    AudioStream asOpening, asGame, asClosing, asFailure, asRat;
     RandomNumberGenerator rand = new();
 
     public enum AudioChannel
@@ -24,6 +24,8 @@ public partial class AudioManager : Node
         Opening,
         GameMusic,
         Closing,
+        Failure,
+        Rat
     }
 
     public override void _Ready()
@@ -32,6 +34,8 @@ public partial class AudioManager : Node
         asOpening = GD.Load<AudioStream>("res://audio/music/opening.ogg");
         asGame = GD.Load<AudioStream>("res://audio/music/game.ogg");
         asClosing = GD.Load<AudioStream>("res://audio/music/closing.ogg");
+        asFailure = GD.Load<AudioStream>("res://audio/music/failure.ogg");
+        asRat = GD.Load<AudioStream>("res://audio/music/rat.wav");
         AddChild(sfxStreamPlayer1);
         AddChild(sfxStreamPlayer2);
         AddChild(sfxStreamPlayer3);
@@ -80,6 +84,12 @@ public partial class AudioManager : Node
                 break;
             case Audio.Closing:
                 stream = asClosing;
+                break;
+            case Audio.Failure:
+                stream = asFailure;
+                break;
+            case Audio.Rat:
+                stream = asRat;
                 break;
         }
         currentPlayer.Stream = stream;

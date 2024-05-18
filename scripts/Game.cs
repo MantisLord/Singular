@@ -7,7 +7,9 @@ public partial class Game : Node
     public bool gameOver = false;
     public bool movementEnabled = false;
     public bool lookEnabled = false;
+    public bool outroPlaying = false;
     public BoneAttachment3D camLookBone;
+    public BoneAttachment3D camLookBoneOutro;
 
     public enum FlyingObjectName
     {

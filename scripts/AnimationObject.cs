@@ -13,6 +13,10 @@ public partial class AnimationObject : Node3D
         {
             game.camLookBone = GetNode<BoneAttachment3D>("Intro Rig/Skeleton3D/TV_2");
         }
+        else if (Name == "Outro")
+        {
+            game.camLookBoneOutro = GetNode<BoneAttachment3D>("House Rig/Skeleton3D/TV -col");
+        }
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         base._Ready();
     }
@@ -24,6 +28,7 @@ public partial class AnimationObject : Node3D
             anim.Seek(seekTime);
     }
 
+    // Intro Anim Events
     private void StartGameAnims()
     {
         world.StartGameAnims();
@@ -44,6 +49,8 @@ public partial class AnimationObject : Node3D
     {
         world.StartSpawn();
     }
+
+    // Crater Anim Events
     private void StopSpawn()
     {
         world.StopSpawn();

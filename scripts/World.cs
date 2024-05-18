@@ -18,6 +18,7 @@ public partial class World : Node3D
     private AnimationObject town;
     private AnimationObject islands;
     private AnimationObject rat;
+    private AnimationObject outro;
     private RandomNumberGenerator rand;
     private AudioManager audioMgr;
     private Game game;
@@ -32,12 +33,13 @@ public partial class World : Node3D
     private double spawnTime = 0.2f;
     private Vector3 playerStartPos = new(-2, 1, -2);
 
-    private const float RESTART_INTRO_TIME = 64;
+    private const float RESTART_INTRO_TIME = 64; // 220; cheater mode
 
     private const string INTRO_ANIM_NAME = "ArmatureAction";
     private const string ISLANDS_ANIM_NAME = "Island RigAction_001";
     private const string TOWN_ANIM_NAME = "ArmatureAction_002";
     private const string CRATER_ANIM_NAME = "Crater RigAction";
+    private const string OUTRO_ANIM_NAME = "ArmatureAction";
 
     private const string HEALTHBAR_ANIM_NAME = "EaseInHP";
     private const string FADEWHITE_ANIM_NAME = "FadeToWhite";
@@ -65,6 +67,7 @@ public partial class World : Node3D
         town = GetNode<AnimationObject>("Town");
         islands = GetNode<AnimationObject>("Islands");
         rat = GetNode<AnimationObject>("Rat");
+        outro = GetNode<AnimationObject>("Outro");
         rand = new RandomNumberGenerator();
         boundaryParticles = GetNode<GpuParticles3D>("BoundaryParticles");
         light = GetNode<DirectionalLight3D>("DirectionalLight3D");
@@ -150,10 +153,11 @@ public partial class World : Node3D
         game.gameOver = true;
         player.Velocity = Vector3.Zero;
 
+        audioMgr.Play(Audio.Rat, AudioChannel.Music);
         rat.PlayAnimation(RAT_IDLE_ANIM_NAME);
-        await ToSignal(GetTree().CreateTimer(2), SceneTreeTimer.SignalName.Timeout);
-        rat.PlayAnimation(RAT_DIE_ANIM_NAME);
         await ToSignal(GetTree().CreateTimer(3), SceneTreeTimer.SignalName.Timeout);
+        rat.PlayAnimation(RAT_DIE_ANIM_NAME);
+        await ToSignal(GetTree().CreateTimer(4), SceneTreeTimer.SignalName.Timeout);
 
         System.Environment.Exit(1);
     }
@@ -165,6 +169,8 @@ public partial class World : Node3D
         DespawnFlyingObjects();
         HideWorld();
         audioMgr.StopBG();
+        audioMgr.Play(Audio.Failure, AudioChannel.Music);
+
         spawnTimer.WaitTime = spawnTime / 2;
         player.Velocity = Vector3.Zero;
         player.cam.LookAt(new Vector3(player.Position.X, -100, player.Position.Z));
@@ -202,9 +208,39 @@ public partial class World : Node3D
     {
         spawnTimer.Stop();
     }
-    public void Won()
+    public async void Won()
     {
+        boundaryParticles.Emitting = false;
+        game.movementEnabled = false;
+        game.lookEnabled = false;
+        game.gameOver = true;
         player.anim.Play(FADEWHITE_ANIM_NAME);
+
+        // wait for game music to be done
+        await ToSignal(GetTree().CreateTimer(20), SceneTreeTimer.SignalName.Timeout);
+        audioMgr.Play(Audio.Closing, AudioChannel.Music);
+        player.cam.Fov = 45;
+        player.colorRect.Visible = false;
+        outro.Visible = true;
+        crater.Visible = false;
+        outro.PlayAnimation(OUTRO_ANIM_NAME);
+        player.GlobalPosition = playerStartPos;
+        game.outroPlaying = true;
+
+
+        // wait until player passes through house
+        //var wall = outro.GetNode<StaticBody3D>("House Rig/Skeleton3D/Wall Ext W -col/Wall Ext W/StaticBody3D");
+        //var roof = outro.GetNode<StaticBody3D>("House Rig/Skeleton3D/Roof -col/Roof/StaticBody3D");
+        //player.AddCollisionExceptionWith(wall);
+        //player.AddCollisionExceptionWith(roof);
+        await ToSignal(GetTree().CreateTimer(16), SceneTreeTimer.SignalName.Timeout);
+        //player.RemoveCollisionExceptionWith(wall);
+        //player.AddCollisionExceptionWith(roof);
+        player.CollisionLayer = 4;
+        player.CollisionMask = 4;
+        game.movementEnabled = true;
+        game.lookEnabled = true;
+        game.outroPlaying = false;
     }
 
     void SpawnObstacle()
