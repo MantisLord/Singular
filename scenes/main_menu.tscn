@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://74t2ad6ehiik"]
+[gd_scene load_steps=12 format=3 uid="uid://74t2ad6ehiik"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_arpbn"]
 [ext_resource type="Texture2D" uid="uid://cc5bxta8mjm6f" path="res://images/addition_symbol.png" id="2_8lcv3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/KeyAssignmentDialog.cs" id="3_2g67k"]
 [ext_resource type="Texture2D" uid="uid://bl3nmyxw2ddlg" path="res://images/subtraction_symbol.png" id="3_ufeqa"]
 [ext_resource type="FontFile" uid="uid://ckkqthjipk0bm" path="res://fonts/Old computer St.ttf" id="5_0fxgs"]
+[ext_resource type="FontFile" uid="uid://bwdu1hi3j1vsp" path="res://fonts/menu font - Blue Screen Personal Use.ttf" id="6_387lu"]
 
 [sub_resource type="Animation" id="Animation_tun6b"]
 resource_name = "FadeIn"
@@ -115,18 +116,23 @@ alignment = 1
 [node name="PlayButton" type="Button" parent="MainContainer/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Play"
+theme_override_fonts/font = ExtResource("6_387lu")
+theme_override_font_sizes/font_size = 20
+text = "play"
 
 [node name="OptionsButton" type="Button" parent="MainContainer/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Options
-"
+theme_override_fonts/font = ExtResource("6_387lu")
+theme_override_font_sizes/font_size = 20
+text = "options"
 
 [node name="ExitButton" type="Button" parent="MainContainer/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Exit"
+theme_override_fonts/font = ExtResource("6_387lu")
+theme_override_font_sizes/font_size = 20
+text = "exit"
 
 [node name="OptionsContainer" type="PanelContainer" parent="MainContainer"]
 visible = false
@@ -147,6 +153,7 @@ alignment = 1
 
 [node name="ResolutionLabel" type="Label" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_387lu")
 text = "Resolution: "
 vertical_alignment = 1
 
@@ -160,15 +167,18 @@ alignment = 1
 
 [node name="FullscreenLabel" type="Label" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_387lu")
 text = "Fullscreen: "
 vertical_alignment = 1
 
 [node name="FullscreenCheckButton" type="CheckButton" parent="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("6_387lu")
 
 [node name="FullscreenLabel2" type="Label" parent="MainContainer/OptionsContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_387lu")
 text = "Controls"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -181,10 +191,12 @@ hide_root = true
 [node name="ResetControlsButton" type="Button" parent="MainContainer/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_387lu")
 text = "Default Controls"
 
 [node name="BackButton" type="Button" parent="MainContainer/OptionsContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_387lu")
 text = "Back"
 
 [node name="KeyAssignmentDialog" type="ConfirmationDialog" parent="MainContainer/OptionsContainer"]

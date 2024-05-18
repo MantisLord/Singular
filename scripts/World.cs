@@ -33,17 +33,21 @@ public partial class World : Node3D
     private double spawnTime = 0.2f;
     private Vector3 playerStartPos = new(-2, 1, -2);
 
-    private const float RESTART_INTRO_TIME = 64; // 220; cheater mode
+    private const float RESTART_INTRO_TIME = 220; // cheater mode
+    //private const float RESTART_INTRO_TIME = 64; // normal mode
 
+    // Scenery
     private const string INTRO_ANIM_NAME = "ArmatureAction";
     private const string ISLANDS_ANIM_NAME = "Island RigAction_001";
     private const string TOWN_ANIM_NAME = "ArmatureAction_002";
     private const string CRATER_ANIM_NAME = "Crater RigAction";
     private const string OUTRO_ANIM_NAME = "ArmatureAction";
 
+    // Player
     private const string HEALTHBAR_ANIM_NAME = "EaseInHP";
     private const string FADEWHITE_ANIM_NAME = "FadeToWhite";
     private const string FADEINMENU_ANIM_NAME = "FadeInStatusAndMenu";
+    private const string FOVADJUST_ANIM_NAME = "FovAdjust";
 
     private const string RAT_IDLE_ANIM_NAME = "Idle";
     private const string RAT_DIE_ANIM_NAME = "Death";
@@ -96,7 +100,7 @@ public partial class World : Node3D
         game.gameOver = false;
         game.won = false;
         boundaryParticles.Emitting = true;
-        player.statusLabel.Visible = true;
+        //player.statusLabel.Visible = true;
         player.healthProgressBar.Value = 100;
         player.Position = playerStartPos;
         spawnTimer.Stop();
@@ -125,9 +129,10 @@ public partial class World : Node3D
         town.anim.Pause();
 
         Tween getDark = CreateTween();
-        //getDark.TweenProperty(light, "light_energy", 0, 10);
-        getDark.TweenProperty(worldEnv.Environment, "background_energy_multiplier", 0, 3);
+        //getDark.TweenProperty(light, "light_energy", 0, 0.25);
+        getDark.TweenProperty(worldEnv.Environment, "background_energy_multiplier", 0, 0.25);
         getDark.Play();
+        //worldEnv.Environment.BackgroundEnergyMultiplier = 0;
 
         intro.Visible = false;
         crater.Visible = false;
@@ -147,24 +152,24 @@ public partial class World : Node3D
         spawnTimer.Stop();
         rat.Visible = true;
         player.Position = playerStartPos;
-        player.cam.LookAt(rat.GlobalPosition);
+        player.cam.LookAt(new Vector3(rat.GlobalPosition.X, rat.GlobalPosition.Y + 0.75f, rat.GlobalPosition.Z));
         game.movementEnabled = false;
         game.lookEnabled = false;
         game.gameOver = true;
         player.Velocity = Vector3.Zero;
 
         audioMgr.Play(Audio.Rat, AudioChannel.Music);
-        rat.PlayAnimation(RAT_IDLE_ANIM_NAME);
-        await ToSignal(GetTree().CreateTimer(3), SceneTreeTimer.SignalName.Timeout);
+        //rat.PlayAnimation(RAT_IDLE_ANIM_NAME);
+        //await ToSignal(GetTree().CreateTimer(3), SceneTreeTimer.SignalName.Timeout);
         rat.PlayAnimation(RAT_DIE_ANIM_NAME);
-        await ToSignal(GetTree().CreateTimer(4), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(5), SceneTreeTimer.SignalName.Timeout);
 
         System.Environment.Exit(1);
     }
 
     public void Died(string colliderName)
     {
-        if (player.menu.Visible)
+        if (!player.menu.Visible)
             player.ToggleIngameMenu();
         DespawnFlyingObjects();
         HideWorld();
@@ -174,7 +179,7 @@ public partial class World : Node3D
         spawnTimer.WaitTime = spawnTime / 2;
         player.Velocity = Vector3.Zero;
         player.cam.LookAt(new Vector3(player.Position.X, -100, player.Position.Z));
-        player.statusLabel.Text = $"You were killed by a {colliderName}. Would you like to restart?";
+        //player.statusLabel.Text = $"You were killed by a {colliderName}. Would you like to restart?";
         player.anim.Play(FADEINMENU_ANIM_NAME);
 
         game.movementEnabled = false;
@@ -215,6 +220,7 @@ public partial class World : Node3D
         game.lookEnabled = false;
         game.gameOver = true;
         player.anim.Play(FADEWHITE_ANIM_NAME);
+        player.Velocity = Vector3.Zero;
 
         // wait for game music to be done
         await ToSignal(GetTree().CreateTimer(20), SceneTreeTimer.SignalName.Timeout);
@@ -224,23 +230,18 @@ public partial class World : Node3D
         outro.Visible = true;
         crater.Visible = false;
         outro.PlayAnimation(OUTRO_ANIM_NAME);
+        player.anim.Play(FOVADJUST_ANIM_NAME);
         player.GlobalPosition = playerStartPos;
         game.outroPlaying = true;
 
-
         // wait until player passes through house
-        //var wall = outro.GetNode<StaticBody3D>("House Rig/Skeleton3D/Wall Ext W -col/Wall Ext W/StaticBody3D");
-        //var roof = outro.GetNode<StaticBody3D>("House Rig/Skeleton3D/Roof -col/Roof/StaticBody3D");
-        //player.AddCollisionExceptionWith(wall);
-        //player.AddCollisionExceptionWith(roof);
         await ToSignal(GetTree().CreateTimer(16), SceneTreeTimer.SignalName.Timeout);
-        //player.RemoveCollisionExceptionWith(wall);
-        //player.AddCollisionExceptionWith(roof);
         player.CollisionLayer = 4;
         player.CollisionMask = 4;
         game.movementEnabled = true;
         game.lookEnabled = true;
         game.outroPlaying = false;
+        game.gameOver = false;
     }
 
     void SpawnObstacle()
@@ -252,7 +253,6 @@ public partial class World : Node3D
         if (game.gameOver && !game.won)
         {
             chosenObject = FlyingObjectName.Toilet; // toilets only, you lost
-            relationToPlayer = true;
         }
 
         switch (chosenObject)
@@ -271,6 +271,13 @@ public partial class World : Node3D
                 break;
             case FlyingObjectName.Toilet:
                 spawn = toiletScene.Instantiate<FlyingObject>();
+
+                if (game.gameOver && !game.won)
+                {
+                    relationToPlayer = true;
+                    spawn.Speed = 1;
+                }
+
                 break;
             case FlyingObjectName.TrashCan:
                 spawn = trashcanScene.Instantiate<FlyingObject>();

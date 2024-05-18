@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cg3m5qnyxjev4"]
+[gd_scene load_steps=15 format=3 uid="uid://cg3m5qnyxjev4"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_vtg0a"]
 [ext_resource type="PackedScene" uid="uid://cnr058fs4jjwx" path="res://scenes/player.tscn" id="2_ck5yq"]
 [ext_resource type="PackedScene" uid="uid://lr6tm80y6q65" path="res://scenes/cylinder.tscn" id="2_jqyku"]
-[ext_resource type="Texture2D" uid="uid://y80ux7krmfp0" path="res://images/AllSkyFree_Sky_DeepDusk_Equirect.png" id="3_wsu2m"]
+[ext_resource type="Material" uid="uid://bytc2ka5nr85" path="res://models/world_env.tres" id="3_b3661"]
 [ext_resource type="Material" uid="uid://c27stqex51obp" path="res://shaders/smoke.tres" id="7_tun51"]
 [ext_resource type="SphereMesh" uid="uid://dv6b86fogs7aw" path="res://shaders/smoke_draw.tres" id="8_dd1ak"]
 [ext_resource type="PackedScene" uid="uid://drpm8la1342uf" path="res://scenes/town.tscn" id="8_ewpe0"]
@@ -13,11 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://cec1wwilhe214" path="res://scenes/rat.tscn" id="11_wll80"]
 [ext_resource type="PackedScene" uid="uid://rhxua1di0gx7" path="res://scenes/outro.tscn" id="12_7u55c"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jmpsw"]
-panorama = ExtResource("3_wsu2m")
-
 [sub_resource type="Sky" id="Sky_jaeft"]
-sky_material = SubResource("PanoramaSkyMaterial_jmpsw")
+sky_material = ExtResource("3_b3661")
 
 [sub_resource type="Environment" id="Environment_1eoep"]
 background_mode = 2

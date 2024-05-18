@@ -35,7 +35,10 @@ public partial class IngameMenu : Control
 
     private void ExitButtonPressed()
     {
-        world.EasterEgg();
+        if (!game.won && game.gameOver)
+            System.Environment.Exit(1);
+        else
+            world.EasterEgg();
     }
 
     public override void _Process(double delta)

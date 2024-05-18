@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://cnr058fs4jjwx"]
+[gd_scene load_steps=24 format=3 uid="uid://cnr058fs4jjwx"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_qytub"]
 [ext_resource type="Script" path="res://scripts/IngameMenu.cs" id="2_uovca"]
+[ext_resource type="FontFile" uid="uid://bwdu1hi3j1vsp" path="res://fonts/menu font - Blue Screen Personal Use.ttf" id="3_pixc4"]
 [ext_resource type="AudioStream" uid="uid://caknkx7v7lacd" path="res://audio/player_sfx/547195__mrfossy__voice_adultmale_paingrunts_12.wav" id="13_mikby"]
 [ext_resource type="AudioStream" uid="uid://cbxft1cf2jphr" path="res://audio/player_sfx/547198__mrfossy__voice_adultmale_paingrunts_15.wav" id="14_m6e56"]
 [ext_resource type="AudioStream" uid="uid://bu3clpsng6fgs" path="res://audio/player_sfx/547201__mrfossy__voice_adultmale_paingrunts_03.wav" id="15_3xcls"]
@@ -235,7 +236,8 @@ show_percentage = false
 [node name="StatusLabel" type="Label" parent="UI/MarginContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-text = "Status"
+text = "
+"
 horizontal_alignment = 1
 
 [node name="FPSLabel" type="Label" parent="UI"]
@@ -291,23 +293,30 @@ alignment = 1
 [node name="ResumeButton" type="Button" parent="UI/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Resume
-"
+theme_override_fonts/font = ExtResource("3_pixc4")
+theme_override_font_sizes/font_size = 20
+text = "resume"
 
 [node name="RestartButton" type="Button" parent="UI/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Restart"
+theme_override_fonts/font = ExtResource("3_pixc4")
+theme_override_font_sizes/font_size = 20
+text = "restart"
 
 [node name="MainMenuButton" type="Button" parent="UI/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Main Menu"
+theme_override_fonts/font = ExtResource("3_pixc4")
+theme_override_font_sizes/font_size = 20
+text = "main menu"
 
 [node name="ExitButton" type="Button" parent="UI/MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
-text = "Exit"
+theme_override_fonts/font = ExtResource("3_pixc4")
+theme_override_font_sizes/font_size = 20
+text = "exit"
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
 modulate = Color(1, 1, 1, 0)
