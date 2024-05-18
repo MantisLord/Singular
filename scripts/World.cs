@@ -34,6 +34,7 @@ public partial class World : Node3D
         game = GetNode<Game>("/root/Game");
         game.lookEnabled = false;
         game.movementEnabled = false;
+        game.gameOver = false;
         spawnTimer = GetNode<Timer>("SpawnTimer");
         spawnTimer.Timeout += () => SpawnObstacle();
         player = GetNode<Player>("Player");
@@ -65,6 +66,7 @@ public partial class World : Node3D
         game.movementEnabled = true;
         boundaryParticles.Emitting = true;
         game.lookEnabled = true;
+        game.gameOver = false;
         player.healthProgressBar.Value = 100;
         audioMgr.Stop();
         intro.PlayAnimation("ArmatureAction", 64);
@@ -87,15 +89,17 @@ public partial class World : Node3D
         {
             if (spawn is FlyingObject obj)
             {
-                obj.LinearVelocity = new Vector3(0, 0, 0);
-                obj.AngularVelocity = new Vector3(0, 0, 0);
+                obj.LinearVelocity = Vector3.Zero;
+                obj.AngularVelocity = Vector3.Zero;
                 obj.anim.Pause();
             }
         }
+        player.Velocity = Vector3.Zero;
 
         game.movementEnabled = false;
         game.lookEnabled = false;
         player.resumeButton.Visible = false;
+        game.gameOver = true;
         if (!player.menu.Visible)
             player.ToggleIngameMenu();
     }

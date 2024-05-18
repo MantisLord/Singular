@@ -7,7 +7,7 @@
 [ext_resource type="Material" uid="uid://c27stqex51obp" path="res://shaders/smoke.tres" id="7_tun51"]
 [ext_resource type="SphereMesh" uid="uid://dv6b86fogs7aw" path="res://shaders/smoke_draw.tres" id="8_dd1ak"]
 [ext_resource type="PackedScene" uid="uid://drpm8la1342uf" path="res://scenes/town.tscn" id="8_ewpe0"]
-[ext_resource type="PackedScene" uid="uid://cwqq6yifaid40" path="res://scenes/intro.tscn" id="8_fjsju"]
+[ext_resource type="PackedScene" uid="uid://c3opfnoviqspm" path="res://scenes/intro.tscn" id="8_fjsju"]
 [ext_resource type="PackedScene" uid="uid://dhci2eah1inul" path="res://scenes/crater.tscn" id="8_hie8l"]
 [ext_resource type="PackedScene" uid="uid://djbycwa2jb7al" path="res://scenes/islands.tscn" id="9_5w7jq"]
 
@@ -43,15 +43,16 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.979
 wait_time = 0.2
 
 [node name="BoundaryParticles" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 9000
 lifetime = 10.0
 visibility_aabb = AABB(-23.4382, -4, -22.1177, 46.8763, 8, 44.2353)
 process_material = ExtResource("7_tun51")
 draw_pass_1 = ExtResource("8_dd1ak")
 
-[node name="Crater" parent="." instance=ExtResource("8_hie8l")]
-
 [node name="Intro" parent="." instance=ExtResource("8_fjsju")]
+
+[node name="Crater" parent="." instance=ExtResource("8_hie8l")]
 
 [node name="Town" parent="." instance=ExtResource("8_ewpe0")]
 

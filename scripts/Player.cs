@@ -9,13 +9,14 @@ public partial class Player : CharacterBody3D
     private AudioManager audioMgr;
 
     private Label fpsLabel;
+    private Label debugLabel;
 
     private const float MOUSE_SENSITIVITY = 0.15f;
     private const float MAX_ANGLE_VIEW = 90f;
     private const float MIN_ANGLE_VIEW = -90f;
-    private const float SPEED = 13.0f;
-    private const float SPEED_ACCEL = 7.0f;
-    private const float SPEED_DECCEL = 0.01f;
+    private const float SPEED = 8.0f;
+    private const float SPEED_ACCEL = 1f;
+    private const float SPEED_DECCEL = 0.02f;
 
     private Node3D head;
     private Camera3D cam;
@@ -36,6 +37,7 @@ public partial class Player : CharacterBody3D
         game = GetNode<Game>("/root/Game");
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
         fpsLabel = GetNode<Label>("UI/FPSLabel");
+        debugLabel = GetNode<Label>("UI/DebugLabel");
         head = GetNode<Node3D>("Head");
         cam = head.GetNode<Camera3D>("Camera3D");
         menu = GetNode<PanelContainer>("UI/MenuContainer");
@@ -77,6 +79,9 @@ public partial class Player : CharacterBody3D
 
     public override void _Process(double delta)
     {
+        if (game.gameOver)
+            return;
+
         if (game.camLookBone != null && !game.lookEnabled)
         {
             cam.LookAt(game.camLookBone.GlobalPosition);
@@ -111,18 +116,13 @@ public partial class Player : CharacterBody3D
         float time = (float)delta;
         Vector3 velocity = Velocity;
         Vector3 direction = new();
-        Basis aim = cam.GlobalTransform.Basis;
 
         if (game.movementEnabled)
         {
-            if (Input.IsActionPressed("forward"))
-                direction -= aim.Z;
-            if (Input.IsActionPressed("backward"))
-                direction += aim.Z;
-            if (Input.IsActionPressed("left"))
-                direction -= aim.X;
-            if (Input.IsActionPressed("right"))
-                direction += aim.X;
+            var inputDir = Input.GetVector("backward","forward","left","right");
+            velocity.X = inputDir.X;
+            velocity.Z = inputDir.Y;
+            direction = (head.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
         }
 
         if (!IsOnFloor())

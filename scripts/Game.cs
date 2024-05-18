@@ -2,6 +2,7 @@ using Godot;
 
 public partial class Game : Node
 {
+    public bool gameOver = false;
     public bool movementEnabled = false;
     public bool lookEnabled = false;
     public BoneAttachment3D camLookBone;

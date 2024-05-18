@@ -78,22 +78,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_gxsoq"]
-resource_name = "FovAdjust"
-length = 15.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Camera3D:fov")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [45.0, 75.0]
-}
-
 [sub_resource type="Animation" id="Animation_lfu0j"]
 resource_name = "FadeToWhite"
 length = 15.0
@@ -108,6 +92,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gxsoq"]
+resource_name = "FovAdjust"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [45.0, 75.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kix7y"]
@@ -174,19 +174,23 @@ size_flags_vertical = 0
 text = "FPS:"
 
 [node name="DebugLabel" type="Label" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = -16.0
 offset_top = -11.5
-offset_right = 20.0
+offset_right = 16.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Debug"
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Debug
+"
 
 [node name="MenuContainer" type="PanelContainer" parent="UI"]
 visible = false
