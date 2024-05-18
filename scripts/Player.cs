@@ -14,9 +14,9 @@ public partial class Player : CharacterBody3D
     private const float MOUSE_SENSITIVITY = 0.15f;
     private const float MAX_ANGLE_VIEW = 90f;
     private const float MIN_ANGLE_VIEW = -90f;
-    private const float SPEED = 15.0f;
-    private const float SPEED_ACCEL = 8.0f;
-    private const float SPEED_DECCEL = 1.0f;
+    private const float SPEED = 13.0f;
+    private const float SPEED_ACCEL = 7.0f;
+    private const float SPEED_DECCEL = 0.5f;
 
     private Node3D head;
     private Camera3D cam;

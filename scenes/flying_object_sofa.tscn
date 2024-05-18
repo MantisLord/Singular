@@ -33,11 +33,10 @@ DamageDealt = 7
 CollisionAudio = NodePath("AudioStreamPlayer3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.36879, 0.469993, -1.85954)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 shape = SubResource("BoxShape3D_81sy4")
 
 [node name="Sofa2" parent="CollisionShape3D" instance=ExtResource("6_u2ab4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36879, -0.469993, 1.85954)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

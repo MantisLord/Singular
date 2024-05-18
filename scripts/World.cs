@@ -13,6 +13,7 @@ public partial class World : Node3D
     private PackedScene trashcanScene = GD.Load<PackedScene>("res://scenes/trashcan.tscn");
     private PackedScene toiletScene = GD.Load<PackedScene>("res://scenes/toilet.tscn");
     private PackedScene sofaScene = GD.Load<PackedScene>("res://scenes/flying_object_sofa.tscn");
+    private PackedScene lampScene = GD.Load<PackedScene>("res://scenes/flying_object_lamp.tscn");
     private Player player;
     private AnimationObject crater;
     private AnimationObject intro;
@@ -47,7 +48,6 @@ public partial class World : Node3D
         intro.PlayAnimation("ArmatureAction");
         islands.PlayAnimation("Island RigAction_001");
         town.PlayAnimation("ArmatureAction_002");
-        crater.PlayAnimation("Crater RigAction");
     }
 
     public override void _Process(double delta)
@@ -68,11 +68,12 @@ public partial class World : Node3D
         player.healthProgressBar.Value = 100;
         player.statusLabel.Visible = false;
         audioMgr.Stop();
-        intro.PlayAnimation("ArmatureAction", 57);
-        crater.PlayAnimation("Crater RigAction", 57);
-        islands.PlayAnimation("Island RigAction_001", 57);
-        town.PlayAnimation("ArmatureAction_002", 57);
-        audioMgr.Play(Audio.GameMusic, AudioChannel.Music, false, 16);
+        intro.PlayAnimation("ArmatureAction", 64);
+
+        crater.PlayAnimation("Crater RigAction", 64+8);
+        islands.PlayAnimation("Island RigAction_001", 64+8);
+        town.PlayAnimation("ArmatureAction_002", 64+8);
+        audioMgr.Play(Audio.GameMusic, AudioChannel.Music, false, 64-52);
     }
 
     public void Pause()
@@ -93,9 +94,18 @@ public partial class World : Node3D
         }
     }
 
-    public void IntroDone()
+    public void StartGameAnims()
+    {
+        crater.PlayAnimation("Crater RigAction");
+    }
+
+    public void StartGameMusic()
     {
         audioMgr.Play(Audio.GameMusic, AudioChannel.Music);
+    }
+    
+    public void GainControl()
+    {
         game.movementEnabled = true;
         boundaryParticles.Emitting = true;
         player.anim.Play("EaseInHP");
@@ -109,7 +119,7 @@ public partial class World : Node3D
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
-        switch (rand.RandiRange(0, 4))
+        switch (rand.RandiRange(0, 5))
         {
             case 0:
                 spawn = houseScene.Instantiate<FlyingObject>();
@@ -125,6 +135,9 @@ public partial class World : Node3D
                 break;
             case 4:
                 spawn = sofaScene.Instantiate<FlyingObject>();
+                break;
+            case 5:
+                spawn = lampScene.Instantiate<FlyingObject>();
                 break;
         }
         spawn.Position = GetRandomPosOverFloor(rand.RandiRange(0,1) == 1);

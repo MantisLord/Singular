@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2y2cb26vjly8"]
+
+[ext_resource type="Script" path="res://scripts/FlyingObject.cs" id="1_f3n0a"]
+[ext_resource type="AnimationLibrary" uid="uid://mfg0cquatxa3" path="res://models/flyingObjectAnim.res" id="3_6ej6i"]
+[ext_resource type="AudioStream" uid="uid://hoipqk85nwv8" path="res://audio/impact_sfx/light post or signs/light post hit.wav" id="3_tytw5"]
+[ext_resource type="AudioStream" uid="uid://c82401yqx4rxe" path="res://audio/impact_sfx/light post or signs/metal pipe hit.wav" id="4_so2iu"]
+[ext_resource type="AudioStream" uid="uid://dtryugo7yq1bw" path="res://audio/impact_sfx/light post or signs/pipe hit.wav" id="5_38iip"]
+[ext_resource type="PackedScene" uid="uid://bh5ujx0jly34x" path="res://scenes/lamp.tscn" id="6_wqrpt"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fbp0p"]
+streams_count = 3
+stream_0/stream = ExtResource("3_tytw5")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_so2iu")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_38iip")
+stream_2/weight = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_imauj"]
+height = 4.3
+radius = 0.3
+
+[node name="Lamp" type="RigidBody3D" node_paths=PackedStringArray("CollisionAudio")]
+collision_layer = 2
+collision_mask = 2
+mass = 10.0
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+linear_velocity = Vector3(0, 10, 0)
+script = ExtResource("1_f3n0a")
+ObjectName = "Lamp"
+DamageDealt = 9
+CollisionAudio = NodePath("AudioStreamPlayer3D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"flyingObjectAnim": ExtResource("3_6ej6i")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fbp0p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 2.15, 0)
+shape = SubResource("CylinderShape3D_imauj")
+
+[node name="lamp" parent="CollisionShape3D" instance=ExtResource("6_wqrpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.15, 0)
+
+[connection signal="body_entered" from="." to="." method="Collided"]

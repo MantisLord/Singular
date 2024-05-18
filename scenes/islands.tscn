@@ -9,12 +9,15 @@ script = ExtResource("2_gki8p")
 [node name="Skeleton3D" parent="Island Rig" index="0"]
 bones/0/position = Vector3(3.36531, -4.82379, -0.28718)
 bones/0/rotation = Quaternion(-0.0205316, -0.0573623, -0.826004, 0.560361)
+bones/0/scale = Vector3(1, 1, 1)
 bones/2/position = Vector3(4.4687, 2.44693, 1.06569)
 bones/2/rotation = Quaternion(-0.126148, -0.446909, 0.877257, 0.121568)
+bones/2/scale = Vector3(1, 1, 1)
 bones/4/position = Vector3(1.28709, -20.7692, -2.07633)
 bones/4/scale = Vector3(0, 0, 0)
 bones/6/position = Vector3(-0.18719, 4.56874, 1.73685)
 bones/6/rotation = Quaternion(0.37154, 0.211964, -0.566707, 0.704182)
+bones/6/scale = Vector3(1, 1, 1)
 bones/8/position = Vector3(1.28709, -20.7692, -2.07633)
 bones/8/scale = Vector3(0, 0, 0)
 bones/10/position = Vector3(-3.69105, -1.27122, 0.0781414)
@@ -27,24 +30,25 @@ bones/16/position = Vector3(1.28709, -20.7692, -2.07633)
 bones/16/scale = Vector3(0, 0, 0)
 bones/18/position = Vector3(-0.745802, -4.99006, -1.04099)
 bones/18/rotation = Quaternion(-0.05026, 0.109882, -0.984122, 0.130011)
+bones/18/scale = Vector3(1, 1, 1)
 
 [node name="Island 6_2" parent="Island Rig/Skeleton3D" index="0"]
-transform = Transform3D(-0.0156292, -0.000607381, 0.0124643, 0.0123273, 0.00235546, 0.0155721, -0.00194087, 0.0198515, -0.00146632, 3.92281, -5.01931, -0.348068)
+transform = Transform3D(-0.0156292, -0.00060738, 0.0124643, 0.0123273, 0.00235546, 0.0155721, -0.00194087, 0.0198515, -0.00146632, 3.92282, -5.01931, -0.348068)
 
 [node name="Island 2_2" parent="Island Rig/Skeleton3D" index="1"]
-transform = Transform3D(-0.0131674, -0.00659976, -0.0135301, -0.00496132, -0.0150687, 0.0121786, -0.0142129, 0.0113744, 0.00828361, 4.25465, 2.32491, 0.779835)
+transform = Transform3D(-0.0131674, -0.00659978, -0.0135301, -0.0049613, -0.0150688, 0.0121786, -0.0142129, 0.0113743, 0.00828361, 4.25465, 2.3249, 0.779831)
 
 [node name="Island 5_2" parent="Island Rig/Skeleton3D" index="2"]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1.28709, -20.7692, -2.07633)
 
 [node name="Island 1_2" parent="Island Rig/Skeleton3D" index="3"]
-transform = Transform3D(0.0197945, -0.00245173, -0.00147191, -0.00282846, -0.0152701, -0.0126025, 0.000421087, 0.0126812, -0.01546, 0.111976, 4.70704, 1.80289)
+transform = Transform3D(0.0197945, -0.00245171, -0.00147189, -0.00282843, -0.0152701, -0.0126025, 0.000421083, 0.0126812, -0.01546, 0.111976, 4.70705, 1.8029)
 
 [node name="Island 3_2" parent="Island Rig/Skeleton3D" index="4"]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1.28709, -20.7692, -2.07633)
 
 [node name="Island 9_2" parent="Island Rig/Skeleton3D" index="5"]
-transform = Transform3D(-0.0175345, 0.00960233, -0.000580009, -7.5315e-05, 0.00106879, 0.0199713, 0.00961954, 0.0175115, -0.000900876, -3.55777, -0.794579, -0.012894)
+transform = Transform3D(-0.0175345, 0.00960232, -0.000580008, -7.53141e-05, 0.00106879, 0.0199713, 0.00961953, 0.0175115, -0.000900879, -3.55777, -0.794578, -0.012894)
 
 [node name="Island 8_2" parent="Island Rig/Skeleton3D" index="6"]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1.28709, -20.7692, -2.07633)
@@ -56,4 +60,4 @@ transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1.28709, -20.7692, -2.07633)
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1.28709, -20.7692, -2.07633)
 
 [node name="Island 4_2" parent="Island Rig/Skeleton3D" index="9"]
-transform = Transform3D(-0.0171708, 0.00254992, -0.00993284, -0.0102543, -0.00406412, 0.0166833, 0.000108636, 0.019416, 0.0047966, -0.594215, -5.41632, -1.14008)
+transform = Transform3D(-0.0171708, 0.00254992, -0.00993283, -0.0102543, -0.00406413, 0.0166833, 0.000108635, 0.019416, 0.00479661, -0.594215, -5.41633, -1.14008)

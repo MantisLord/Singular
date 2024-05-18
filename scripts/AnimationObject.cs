@@ -19,29 +19,34 @@ public partial class AnimationObject : Node3D
 
     public void PlayAnimation(string AnimationName, double seekTime = 0)
     {
+        anim.Play(AnimationName);
         if (seekTime > 0)
             anim.Seek(seekTime);
-        anim.Play(AnimationName);
     }
 
-    private void BlackHoleReachedPlayer()
+    private void StartGameAnims()
     {
-        game.EndGame();
+        world.StartGameAnims();
     }
-
     private void AllowLook()
     {
         game.lookEnabled = true;
     }
-
-    private void IntroDone()
+    private void StartGameMusic()
     {
-        world.IntroDone();
+        world.StartGameMusic();
     }
-
+    private void GainControl()
+    {
+        world.GainControl();
+    }
     private void StartSpawn()
     {
         world.StartSpawn();
+    }
+    private void BlackHoleReachedPlayer()
+    {
+        game.EndGame();
     }
 
     public override void _Process(double delta)

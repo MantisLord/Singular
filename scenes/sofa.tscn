@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cscitu5hucgl7" path="res://models/Sofa.glb" id="1_35vr8"]
 
 [node name="Sofa2" instance=ExtResource("1_35vr8")]
+
+[node name="Sofa" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
