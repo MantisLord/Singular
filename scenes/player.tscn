@@ -263,7 +263,7 @@ libraries = {
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 libraries = {
-"playerAnim": ExtResource("9_m2eun")
+"": ExtResource("9_m2eun")
 }
 
 [connection signal="pressed" from="UI/MenuContainer/VBoxContainer/ResumeButton" to="UI" method="ResumeButtonPressed"]
