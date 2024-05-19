@@ -14,16 +14,15 @@ public partial class Player : CharacterBody3D
 
     private Game game;
     private AudioManager audioMgr;
-    private Label fpsLabel;
-    private Label debugLabel;
+    private Label exitLabel;
     private Node3D head;
     private AudioStreamPlayer3D gruntAudioStreamPlayer;
     private World world;
     private RandomNumberGenerator rand = new();
+    private RayCast3D interact;
 
     public Button resumeButton;
     public Control menu;
-    public Label statusLabel;
     public ProgressBar healthProgressBar;
     public AnimationPlayer anim;
     public AnimationPlayer anim2;
@@ -34,9 +33,7 @@ public partial class Player : CharacterBody3D
     {
         game = GetNode<Game>("/root/Game");
         audioMgr = GetNode<AudioManager>("/root/AudioManager");
-        fpsLabel = GetNode<Label>("UI/FPSLabel");
-        debugLabel = GetNode<Label>("UI/DebugLabel");
-        statusLabel = GetNode<Label>("UI/MarginContainer/VBoxContainer/StatusLabel");
+        exitLabel = GetNode<Label>("UI/ExitLabel");
         head = GetNode<Node3D>("Head");
         cam = head.GetNode<Camera3D>("Camera3D");
         menu = GetNode<PanelContainer>("UI/MenuContainer");
@@ -47,6 +44,7 @@ public partial class Player : CharacterBody3D
         anim2 = GetNode<AnimationPlayer>("AnimationPlayer2");
         world = GetTree().Root.GetNode<World>("World");
         colorRect = GetNode<ColorRect>("UI/ColorRect");
+        interact = head.GetNode<RayCast3D>("InteractRay");
 
         anim.Play("FovAdjust");
 
@@ -105,7 +103,27 @@ public partial class Player : CharacterBody3D
             ToggleIngameMenu();
         }
 
+        if (interact.IsColliding())
+        {
+            exitLabel.Visible = true;
+            if (Input.IsActionJustPressed("interact"))
+            {
+                colorRect.Visible = true;
+                game.movementEnabled = false;
+                game.lookEnabled = false;
+                Velocity = new(0, 0, 0);
+                anim.Play("EndingFlash");
+            }
+        }
+        else
+            exitLabel.Visible = false;
+
         base._Process(delta);
+    }
+
+    public void WonGame()
+    {
+        game.ChangeScene("main_menu");
     }
 
     public override void _UnhandledInput(InputEvent @event)

@@ -117,22 +117,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_oa7pd")
 value = 100.0
 show_percentage = false
 
-[node name="StatusLabel" type="Label" parent="UI/MarginContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-text = "
-"
-horizontal_alignment = 1
-
-[node name="FPSLabel" type="Label" parent="UI"]
-layout_mode = 1
-offset_right = 32.0
-offset_bottom = 23.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "FPS:"
-
-[node name="DebugLabel" type="Label" parent="UI"]
+[node name="ExitLabel" type="Label" parent="UI"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -148,8 +133,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Debug
-"
+theme_override_fonts/font = ExtResource("3_pixc4")
+theme_override_font_sizes/font_size = 30
+text = "Press F to depart."
 
 [node name="MenuContainer" type="PanelContainer" parent="UI"]
 visible = false

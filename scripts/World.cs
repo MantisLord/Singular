@@ -105,7 +105,6 @@ public partial class World : Node3D
         game.gameOver = false;
         game.won = false;
         boundaryParticles.Emitting = true;
-        //player.statusLabel.Visible = true;
         player.healthProgressBar.Value = 100;
         player.Position = playerStartPos;
         spawnTimer.Stop();
@@ -184,7 +183,6 @@ public partial class World : Node3D
         spawnTimer.WaitTime = spawnTime / 2;
         player.Velocity = Vector3.Zero;
         player.cam.LookAt(new Vector3(player.Position.X, -100, player.Position.Z));
-        //player.statusLabel.Text = $"You were killed by a {colliderName}. Would you like to restart?";
         player.anim.Play(FADEINMENU_ANIM_NAME);
 
         game.movementEnabled = false;

@@ -280,6 +280,14 @@ mesh = SubResource("ArrayMesh_2gkc2")
 collision_layer = 4
 collision_mask = 4
 
+[node name="MagicLeaveBox" type="CSGBox3D" parent="House Rig/Skeleton3D/Wall Ext S -col" index="1"]
+transform = Transform3D(1, -6.1118e-10, 9.31323e-10, -4.15836e-06, 0.999987, 0, 1.37836e-07, -7.91624e-09, 1, -0.00306553, 9.15125, 0.982607)
+layers = 0
+use_collision = true
+collision_layer = 8
+collision_mask = 8
+size = Vector3(0.282837, 16.1084, 0.05)
+
 [node name="Floor -col" parent="House Rig/Skeleton3D" index="1"]
 transform = Transform3D(0.151787, 0.00018829, -0.00294982, -0.00484621, 0.0062778, -0.0185539, 0.00237418, 0.000776513, 0.150716, 1.31474, -9.22993, -1.34507)
 
