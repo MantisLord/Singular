@@ -11,6 +11,8 @@ public partial class AudioManager : Node
     AudioStream asButtonHover, asButtonPlay, asButtonOptions, asButtonRestart, asButtonQuit;
     RandomNumberGenerator rand = new();
 
+    private const int VOLUME_ADJUSTMENT = -20;
+
     public enum AudioChannel
     {
         SFX1,
@@ -59,7 +61,7 @@ public partial class AudioManager : Node
     public void Play(AudioStreamPlayer3D player, AudioChannel channel = AudioChannel.SFX1)
     {
         // adjust volume based on channel
-        //player.VolumeDb = 
+        player.VolumeDb = VOLUME_ADJUSTMENT;
         player.Play();
     }
 
@@ -119,6 +121,7 @@ public partial class AudioManager : Node
                 stream = asButtonOptions;
                 break;
         }
+        currentPlayer.VolumeDb = VOLUME_ADJUSTMENT;
         currentPlayer.Stream = stream;
         currentPlayer.Play(fromPos);
         if (await)
