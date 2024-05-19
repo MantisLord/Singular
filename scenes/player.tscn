@@ -80,6 +80,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 fov = 45.0
 far = 6000.0
 
+[node name="InteractRay" type="RayCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+target_position = Vector3(0, 0, -1)
+collision_mask = 8
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15

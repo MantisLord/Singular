@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://rhxua1di0gx7"]
 
-[ext_resource type="PackedScene" uid="uid://b0xuvxnq4mrgr" path="res://models/Outro.glb" id="1_3kokm"]
+[ext_resource type="PackedScene" uid="uid://b656layey2hgr" path="res://models/Outro.glb" id="1_3kokm"]
 [ext_resource type="Script" path="res://scripts/AnimationObject.cs" id="2_8xids"]
 [ext_resource type="Material" uid="uid://blmwxkkuf0gf" path="res://models/window.tres" id="3_wynoe"]
 
@@ -255,6 +255,16 @@ script = ExtResource("2_8xids")
 bones/0/position = Vector3(1.21222, -9.16459, -1.43585)
 bones/0/rotation = Quaternion(0.0613407, -0.00878125, -0.0154467, 0.997959)
 bones/0/scale = Vector3(0.0506276, 0.0506275, 0.0506276)
+bones/2/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/4/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/6/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/8/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/10/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/12/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/14/rotation = Quaternion(-2.00331e-09, 8.31538e-10, -8.92517e-10, 1)
+bones/16/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/20/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
+bones/22/rotation = Quaternion(1.8869e-09, 5.43272e-10, -8.92517e-10, 1)
 bones/23/position = Vector3(2.09296, -4.16497, 1.8976)
 bones/26/position = Vector3(-4.76837e-07, 0.104664, 2.38419e-06)
 bones/28/position = Vector3(-4.76837e-07, 0.104664, 2.38419e-06)
@@ -376,8 +386,8 @@ transform = Transform3D(0.0505956, 0.00150632, -0.000983273, -0.0016154, 0.05022
 mesh = SubResource("ArrayMesh_xni6k")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="House Rig/Skeleton3D/Sofa_2/Sofa_2" index="0"]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="House Rig/Skeleton3D/Sofa_2/Sofa_2/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_qkrfe")

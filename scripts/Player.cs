@@ -100,12 +100,11 @@ public partial class Player : CharacterBody3D
             cam.LookAt(game.camLookBone.GlobalPosition);
         }
 
-        if (Input.IsActionJustPressed("escape"))
+        if (Input.IsActionJustPressed("escape") && !game.won)
         {
             ToggleIngameMenu();
         }
 
-        fpsLabel.Text = $"FPS: {Engine.GetFramesPerSecond()}";
         base._Process(delta);
     }
 

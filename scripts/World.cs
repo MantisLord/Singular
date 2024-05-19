@@ -19,6 +19,7 @@ public partial class World : Node3D
     private AnimationObject town;
     private AnimationObject islands;
     private AnimationObject rat;
+    private AnimationObject galaxy;
     private AnimationObject outro;
     private RandomNumberGenerator rand;
     private AudioManager audioMgr;
@@ -34,8 +35,8 @@ public partial class World : Node3D
     private double spawnTime = 0.2f;
     private Vector3 playerStartPos = new(-2, 1, -2);
 
-    //private const float RESTART_INTRO_TIME = 220; // cheater mode
-    private const float RESTART_INTRO_TIME = 64; // normal mode
+    private const float RESTART_INTRO_TIME = 220; // cheater mode
+    //private const float RESTART_INTRO_TIME = 64; // normal mode
 
     // Scenery
     private const string INTRO_ANIM_NAME = "ArmatureAction";
@@ -43,12 +44,14 @@ public partial class World : Node3D
     private const string TOWN_ANIM_NAME = "ArmatureAction_002";
     private const string CRATER_ANIM_NAME = "Crater RigAction";
     private const string OUTRO_ANIM_NAME = "ArmatureAction";
+    private const string GALAXY_ANIM_NAME = "Galaxy RigAction_001";
 
     // Player
     private const string HEALTHBAR_ANIM_NAME = "EaseInHP";
     private const string FADEWHITE_ANIM_NAME = "FadeToWhite";
     private const string FADEINMENU_ANIM_NAME = "FadeInStatusAndMenu";
     private const string FOVADJUST_ANIM_NAME = "FovAdjust";
+    private const string FOVADJUST_OUTRO_ANIM_NAME = "FovAdjustOutro";
 
     private const string RAT_IDLE_ANIM_NAME = "Idle";
     private const string RAT_DIE_ANIM_NAME = "Death";
@@ -72,6 +75,7 @@ public partial class World : Node3D
         town = GetNode<AnimationObject>("Town");
         islands = GetNode<AnimationObject>("Islands");
         rat = GetNode<AnimationObject>("Rat");
+        galaxy = GetNode<AnimationObject>("Galaxy");
         outro = GetNode<AnimationObject>("Outro");
         rand = new RandomNumberGenerator();
         boundaryParticles = GetNode<GpuParticles3D>("BoundaryParticles");
@@ -216,34 +220,42 @@ public partial class World : Node3D
     }
     public async void Won()
     {
+        game.won = true;
         boundaryParticles.Emitting = false;
         game.movementEnabled = false;
-        game.lookEnabled = false;
         game.gameOver = true;
         player.anim.Play(FADEWHITE_ANIM_NAME);
+        player.GlobalPosition = new Vector3(0, 1, 0);
         player.Velocity = Vector3.Zero;
         player.anim2.PlayBackwards(HEALTHBAR_ANIM_NAME);
+        crater.Visible = false;
+        galaxy.Visible = true;
+        galaxy.PlayAnimation(GALAXY_ANIM_NAME);
 
-        // wait for game music to be done
+        // wait for galaxy anim + game music to be done
         await ToSignal(GetTree().CreateTimer(20), SceneTreeTimer.SignalName.Timeout);
+        game.lookEnabled = false;
         audioMgr.Play(Audio.Closing, AudioChannel.Music);
         player.cam.Fov = 45;
         player.colorRect.Visible = false;
         outro.Visible = true;
-        crater.Visible = false;
+        galaxy.Visible = false;
+        
         outro.PlayAnimation(OUTRO_ANIM_NAME);
         player.anim.Play(FOVADJUST_ANIM_NAME);
-        player.GlobalPosition = playerStartPos;
+        player.GlobalPosition = new Vector3(-1.979f, 1, -1.929f); // new Vector3(-1.3f, 1, -2);
         game.outroPlaying = true;
 
         // wait until player passes through house
         await ToSignal(GetTree().CreateTimer(16), SceneTreeTimer.SignalName.Timeout);
         player.CollisionLayer = 4;
         player.CollisionMask = 4;
-        game.movementEnabled = true;
         game.lookEnabled = true;
         game.outroPlaying = false;
         game.gameOver = false;
+
+        await ToSignal(GetTree().CreateTimer(15), SceneTreeTimer.SignalName.Timeout);
+        game.movementEnabled = true;
     }
 
     void SpawnObstacle()

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyu5sr2o3ry1g"]
+
+[ext_resource type="PackedScene" uid="uid://ch7h37h8pujrn" path="res://models/Galaxy.glb" id="1_7fqmo"]
+[ext_resource type="Script" path="res://scripts/AnimationObject.cs" id="2_libe5"]
+
+[node name="Galaxy" instance=ExtResource("1_7fqmo")]
+script = ExtResource("2_libe5")
+
+[node name="Skeleton3D" parent="Galaxy Rig" index="0"]
+bones/0/position = Vector3(0, 0, -44)
+bones/0/scale = Vector3(10, 10, 25)
+bones/2/position = Vector3(0, 0.15, -90)
+bones/4/position = Vector3(0, 0.15, -90)
+bones/6/position = Vector3(0, 0.15, -90)
+bones/8/position = Vector3(0, 0.15, -90)
+
+[node name="Chamber_2" parent="Galaxy Rig/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.5, 0, 0, -44)
+
+[node name="Sun_2" parent="Galaxy Rig/Skeleton3D" index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6.62274e-10, 0.15, -90)
+
+[node name="Earth_2" parent="Galaxy Rig/Skeleton3D" index="2"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.43723e-13, 0.15, -90)
+
+[node name="Saturn_2" parent="Galaxy Rig/Skeleton3D" index="3"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.00138e-10, 0.15, -90)
+
+[node name="Neptune_2" parent="Galaxy Rig/Skeleton3D" index="4"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.32225e-11, 0.15, -90)

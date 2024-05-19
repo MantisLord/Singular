@@ -42,7 +42,7 @@ public partial class IngameMenu : Control
 
     private void ExitButtonPressed()
     {
-        if (!game.won && game.gameOver)
+        if (game.gameOver)
         {
             audioMgr.Play(Audio.ButtonQuit, AudioChannel.SFX3, true);
             System.Environment.Exit(1);
