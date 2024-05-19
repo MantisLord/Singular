@@ -8,9 +8,10 @@ public partial class Player : CharacterBody3D
     private const float MOUSE_SENSITIVITY = 0.15f;
     private const float MAX_ANGLE_VIEW = 90f;
     private const float MIN_ANGLE_VIEW = -90f;
-    private const float SPEED = 8.0f;
-    private const float SPEED_ACCEL = 1f;
-    private const float SPEED_DECCEL = 0.02f;
+    
+    public float speed = 8.0f;
+    public float speedAccel = 1f;
+    public float speedDeccel = 0.02f;
 
     private Game game;
     private AudioManager audioMgr;
@@ -124,6 +125,7 @@ public partial class Player : CharacterBody3D
     public void WonGame()
     {
         game.ChangeScene("main_menu");
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -162,13 +164,13 @@ public partial class Player : CharacterBody3D
 
         if (direction != Vector3.Zero)
         {
-            velocity.X = Mathf.Lerp(Velocity.X, direction.X * SPEED, time * SPEED_ACCEL);
-            velocity.Z = Mathf.Lerp(Velocity.Z, direction.Z * SPEED, time * SPEED_ACCEL);
+            velocity.X = Mathf.Lerp(Velocity.X, direction.X * speed, time * speedAccel);
+            velocity.Z = Mathf.Lerp(Velocity.Z, direction.Z * speed, time * speedAccel);
         }
         else
         {
-            velocity.X = Mathf.Lerp(Velocity.X, 0, time * SPEED_DECCEL);
-            velocity.Z = Mathf.Lerp(Velocity.Z, 0, time * SPEED_DECCEL);
+            velocity.X = Mathf.Lerp(Velocity.X, 0, time * speedDeccel);
+            velocity.Z = Mathf.Lerp(Velocity.Z, 0, time * speedDeccel);
         }
         Velocity = velocity;
         MoveAndSlide();

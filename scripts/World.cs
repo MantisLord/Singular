@@ -35,8 +35,8 @@ public partial class World : Node3D
     private double spawnTime = 0.2f;
     private Vector3 playerStartPos = new(-2, 1, -2);
 
-    private const float RESTART_INTRO_TIME = 220; // cheater mode
-    //private const float RESTART_INTRO_TIME = 64; // normal mode
+    //private const float RESTART_INTRO_TIME = 220; // cheater mode
+    private const float RESTART_INTRO_TIME = 64; // normal mode
 
     // Scenery
     private const string INTRO_ANIM_NAME = "ArmatureAction";
@@ -253,6 +253,9 @@ public partial class World : Node3D
         game.gameOver = false;
 
         await ToSignal(GetTree().CreateTimer(15), SceneTreeTimer.SignalName.Timeout);
+        player.speed = 5;
+        player.speedAccel = 3;
+        player.speedDeccel = 4;
         game.movementEnabled = true;
     }
 
