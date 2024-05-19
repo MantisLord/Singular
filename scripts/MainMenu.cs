@@ -2,10 +2,12 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Linq;
+using static AudioManager;
 
 public partial class MainMenu : Control
 {
     Game game;
+    AudioManager audioMgr;
     CheckButton fullscreenCheckButton;
     OptionButton resolutionOptionsButton;
     readonly Vector2I[] resolutionsArray =
@@ -131,6 +133,7 @@ public partial class MainMenu : Control
     {
         InputMap.LoadFromProjectSettings();
         game = GetNode<Game>("/root/Game");
+        audioMgr = GetNode<AudioManager>("/root/AudioManager");
         menuContainer = GetNode<PanelContainer>("MainContainer/MenuContainer");
         optionsContainer = GetNode<PanelContainer>("MainContainer/OptionsContainer");
         fullscreenCheckButton = optionsContainer.GetNode<CheckButton>("VBoxContainer/HBoxContainer2/FullscreenCheckButton");
@@ -150,6 +153,11 @@ public partial class MainMenu : Control
         BuildAssignedInputEvents();
         BuildUITree();
         HorizontallyAlignPopupLabels();
+    }
+
+    private void ButtonHover()
+    {
+        audioMgr.Play(Audio.ButtonHover, AudioChannel.SFX2);
     }
 
     private void SetDefaultInputs()
@@ -550,12 +558,14 @@ public partial class MainMenu : Control
     private void PlayButtonPressed()
     {
         game.ChangeScene("world");
+        audioMgr.Play(Audio.ButtonPlay, AudioChannel.SFX3);
     }
 
     private void OptionsButtonPressed()
     {
         optionsContainer.Visible = true;
         menuContainer.Visible = false;
+        audioMgr.Play(Audio.ButtonOptions, AudioChannel.SFX3);
     }
 
     private void BackButtonPressed()
@@ -564,8 +574,9 @@ public partial class MainMenu : Control
         menuContainer.Visible = true;
     }
 
-    private static void ExitButtonPressed()
+    private void ExitButtonPressed()
     {
+        audioMgr.Play(Audio.ButtonQuit, AudioChannel.SFX3, true);
         System.Environment.Exit(1);
     }
 

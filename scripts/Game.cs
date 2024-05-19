@@ -19,6 +19,7 @@ public partial class Game : Node
         Lamp,
         Toilet,
         TrashCan,
+        Television,
     }
 
     public void ChangeScene(string sceneName)

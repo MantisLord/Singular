@@ -266,7 +266,11 @@ libraries = {
 "": ExtResource("9_m2eun")
 }
 
+[connection signal="mouse_entered" from="UI/MenuContainer/VBoxContainer/ResumeButton" to="UI" method="ButtonHover"]
 [connection signal="pressed" from="UI/MenuContainer/VBoxContainer/ResumeButton" to="UI" method="ResumeButtonPressed"]
+[connection signal="mouse_entered" from="UI/MenuContainer/VBoxContainer/RestartButton" to="UI" method="ButtonHover"]
 [connection signal="pressed" from="UI/MenuContainer/VBoxContainer/RestartButton" to="UI" method="RestartButtonPressed"]
+[connection signal="mouse_entered" from="UI/MenuContainer/VBoxContainer/MainMenuButton" to="UI" method="ButtonHover"]
 [connection signal="pressed" from="UI/MenuContainer/VBoxContainer/MainMenuButton" to="UI" method="MainMenuButtonPressed"]
+[connection signal="mouse_entered" from="UI/MenuContainer/VBoxContainer/ExitButton" to="UI" method="ButtonHover"]
 [connection signal="pressed" from="UI/MenuContainer/VBoxContainer/ExitButton" to="UI" method="ExitButtonPressed"]

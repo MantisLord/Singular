@@ -1,4 +1,5 @@
 using Godot;
+using static AudioManager;
 
 public partial class IngameMenu : Control
 {
@@ -14,11 +15,17 @@ public partial class IngameMenu : Control
         menu = GetNode<PanelContainer>("MenuContainer");
     }
 
+    private void ButtonHover()
+    {
+        audioMgr.Play(Audio.ButtonHover, AudioChannel.SFX2);
+    }
+
     private void RestartButtonPressed()
     {
         world.Restart();
         Input.MouseMode = Input.MouseModeEnum.Captured;
         menu.Visible = false;
+        audioMgr.Play(Audio.ButtonRestart, AudioChannel.SFX3);
     }
 
     private void MainMenuButtonPressed()
@@ -36,7 +43,10 @@ public partial class IngameMenu : Control
     private void ExitButtonPressed()
     {
         if (!game.won && game.gameOver)
+        {
+            audioMgr.Play(Audio.ButtonQuit, AudioChannel.SFX3, true);
             System.Environment.Exit(1);
+        }
         else
             world.EasterEgg();
     }

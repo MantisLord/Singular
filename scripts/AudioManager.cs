@@ -8,6 +8,7 @@ public partial class AudioManager : Node
     AudioStreamPlayer ambienceStreamPlayer = new();
     AudioStreamPlayer musicStreamPlayer = new();
     AudioStream asOpening, asGame, asClosing, asFailure, asRat;
+    AudioStream asButtonHover, asButtonPlay, asButtonOptions, asButtonRestart, asButtonQuit;
     RandomNumberGenerator rand = new();
 
     public enum AudioChannel
@@ -25,7 +26,12 @@ public partial class AudioManager : Node
         GameMusic,
         Closing,
         Failure,
-        Rat
+        Rat,
+        ButtonHover,
+        ButtonPlay,
+        ButtonOptions,
+        ButtonRestart,
+        ButtonQuit,
     }
 
     public override void _Ready()
@@ -36,6 +42,12 @@ public partial class AudioManager : Node
         asClosing = GD.Load<AudioStream>("res://audio/music/closing.ogg");
         asFailure = GD.Load<AudioStream>("res://audio/music/failure.ogg");
         asRat = GD.Load<AudioStream>("res://audio/music/rat.wav");
+
+        asButtonHover = GD.Load<AudioStream>("res://audio/interface/interface - hover.wav");
+        asButtonOptions = GD.Load<AudioStream>("res://audio/interface/interface - OPTIONS.wav");
+        asButtonPlay = GD.Load<AudioStream>("res://audio/interface/interface - PLAY.wav");
+        asButtonQuit = GD.Load<AudioStream>("res://audio/interface/interface - quit.wav");
+        asButtonRestart = GD.Load<AudioStream>("res://audio/interface/interface - RESTART.wav");
         AddChild(sfxStreamPlayer1);
         AddChild(sfxStreamPlayer2);
         AddChild(sfxStreamPlayer3);
@@ -90,6 +102,21 @@ public partial class AudioManager : Node
                 break;
             case Audio.Rat:
                 stream = asRat;
+                break;
+            case Audio.ButtonHover:
+                stream = asButtonHover;
+                break;
+            case Audio.ButtonPlay:
+                stream = asButtonPlay;
+                break;
+            case Audio.ButtonQuit:
+                stream = asButtonQuit;
+                break;
+            case Audio.ButtonRestart:
+                stream = asButtonRestart;
+                break;
+            case Audio.ButtonOptions:
+                stream = asButtonOptions;
                 break;
         }
         currentPlayer.Stream = stream;

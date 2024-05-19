@@ -218,14 +218,19 @@ size = Vector2i(400, 100)
 title = "Already Assigned"
 size = Vector2i(400, 100)
 
+[connection signal="mouse_entered" from="MainContainer/MenuContainer/VBoxContainer/PlayButton" to="." method="ButtonHover"]
 [connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/PlayButton" to="." method="PlayButtonPressed"]
+[connection signal="mouse_entered" from="MainContainer/MenuContainer/VBoxContainer/OptionsButton" to="." method="ButtonHover"]
 [connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/OptionsButton" to="." method="OptionsButtonPressed"]
+[connection signal="mouse_entered" from="MainContainer/MenuContainer/VBoxContainer/ExitButton" to="." method="ButtonHover"]
 [connection signal="pressed" from="MainContainer/MenuContainer/VBoxContainer/ExitButton" to="." method="ExitButtonPressed"]
 [connection signal="item_selected" from="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer/ResolutionOptionButton" to="." method="ResolutionOptionsItemSelected"]
 [connection signal="toggled" from="MainContainer/OptionsContainer/VBoxContainer/HBoxContainer2/FullscreenCheckButton" to="." method="FullscreenButtonToggled"]
 [connection signal="button_clicked" from="MainContainer/OptionsContainer/VBoxContainer/Tree" to="." method="OnTreeButtonClicked"]
 [connection signal="item_activated" from="MainContainer/OptionsContainer/VBoxContainer/Tree" to="." method="OnTreeItemActivated"]
+[connection signal="mouse_entered" from="MainContainer/OptionsContainer/VBoxContainer/ResetControlsButton" to="." method="ButtonHover"]
 [connection signal="pressed" from="MainContainer/OptionsContainer/VBoxContainer/ResetControlsButton" to="." method="OnResetButtonPressed"]
+[connection signal="mouse_entered" from="MainContainer/OptionsContainer/VBoxContainer/BackButton" to="." method="ButtonHover"]
 [connection signal="pressed" from="MainContainer/OptionsContainer/VBoxContainer/BackButton" to="." method="BackButtonPressed"]
 [connection signal="canceled" from="MainContainer/OptionsContainer/KeyAssignmentDialog" to="." method="OnKeyAssignmentDialogCanceled"]
 [connection signal="confirmed" from="MainContainer/OptionsContainer/KeyAssignmentDialog" to="." method="OnKeyAssignmentDialogConfirmed"]

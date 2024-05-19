@@ -12,6 +12,7 @@ public partial class World : Node3D
     private PackedScene toiletScene = GD.Load<PackedScene>("res://scenes/toilet.tscn");
     private PackedScene sofaScene = GD.Load<PackedScene>("res://scenes/flying_object_sofa.tscn");
     private PackedScene lampScene = GD.Load<PackedScene>("res://scenes/flying_object_lamp.tscn");
+    private PackedScene tvScene = GD.Load<PackedScene>("res://scenes/flying_object_tv.tscn");
     private Player player;
     private AnimationObject crater;
     private AnimationObject intro;
@@ -248,7 +249,7 @@ public partial class World : Node3D
     void SpawnObstacle()
     {
         FlyingObject spawn = null;
-        FlyingObjectName chosenObject = (FlyingObjectName)rand.RandiRange(0, 5);
+        FlyingObjectName chosenObject = (FlyingObjectName)rand.RandiRange(0, 6);
         bool relationToPlayer = rand.RandiRange(0, 1) == 1;
 
         if (game.gameOver && !game.won)
@@ -282,6 +283,9 @@ public partial class World : Node3D
                 break;
             case FlyingObjectName.TrashCan:
                 spawn = trashcanScene.Instantiate<FlyingObject>();
+                break;
+            case FlyingObjectName.Television:
+                spawn = tvScene.Instantiate<FlyingObject>();
                 break;
         }
 
