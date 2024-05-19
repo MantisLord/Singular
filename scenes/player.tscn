@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://cnr058fs4jjwx"]
+[gd_scene load_steps=20 format=3 uid="uid://cnr058fs4jjwx"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_qytub"]
 [ext_resource type="Script" path="res://scripts/IngameMenu.cs" id="2_uovca"]
 [ext_resource type="FontFile" uid="uid://bwdu1hi3j1vsp" path="res://fonts/menu font - Blue Screen Personal Use.ttf" id="3_pixc4"]
+[ext_resource type="AnimationLibrary" uid="uid://bajq8k7jy0xlc" path="res://models/playerAnim.res" id="9_m2eun"]
 [ext_resource type="AudioStream" uid="uid://caknkx7v7lacd" path="res://audio/player_sfx/547195__mrfossy__voice_adultmale_paingrunts_12.wav" id="13_mikby"]
 [ext_resource type="AudioStream" uid="uid://cbxft1cf2jphr" path="res://audio/player_sfx/547198__mrfossy__voice_adultmale_paingrunts_15.wav" id="14_m6e56"]
 [ext_resource type="AudioStream" uid="uid://bu3clpsng6fgs" path="res://audio/player_sfx/547201__mrfossy__voice_adultmale_paingrunts_03.wav" id="15_3xcls"]
@@ -62,128 +63,6 @@ stream_3/stream = ExtResource("16_6okmy")
 stream_3/weight = 1.0
 stream_4/stream = ExtResource("17_1w0xc")
 stream_4/weight = 1.0
-
-[sub_resource type="Animation" id="Animation_lex2d"]
-resource_name = "EaseInHP"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/MarginContainer/VBoxContainer/HealthProgressBar:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_lfu0j"]
-resource_name = "FadeToWhite"
-length = 15.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_gxsoq"]
-resource_name = "FovAdjust"
-length = 15.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Camera3D:fov")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [45.0, 75.0]
-}
-
-[sub_resource type="Animation" id="Animation_887qw"]
-resource_name = "FadeInStatusAndMenu"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/MarginContainer/VBoxContainer/StatusLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(2, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UI/MenuContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(2, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("UI/MarginContainer/VBoxContainer/StatusLabel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("UI/MenuContainer:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1.9),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"ToggleMouseControl"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kix7y"]
-_data = {
-"EaseInHP": SubResource("Animation_lex2d"),
-"FadeInStatusAndMenu": SubResource("Animation_887qw"),
-"FadeToWhite": SubResource("Animation_lfu0j"),
-"FovAdjust": SubResource("Animation_gxsoq")
-}
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 3
@@ -379,7 +258,12 @@ stream = SubResource("AudioStreamRandomizer_5gxj4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_kix7y")
+"": ExtResource("9_m2eun")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"playerAnim": ExtResource("9_m2eun")
 }
 
 [connection signal="pressed" from="UI/MenuContainer/VBoxContainer/ResumeButton" to="UI" method="ResumeButtonPressed"]

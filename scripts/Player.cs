@@ -26,6 +26,7 @@ public partial class Player : CharacterBody3D
     public Label statusLabel;
     public ProgressBar healthProgressBar;
     public AnimationPlayer anim;
+    public AnimationPlayer anim2;
     public Camera3D cam;
     public ColorRect colorRect;
 
@@ -43,6 +44,7 @@ public partial class Player : CharacterBody3D
         resumeButton = menu.GetNode<Button>("VBoxContainer/ResumeButton");
         gruntAudioStreamPlayer = GetNode<AudioStreamPlayer3D>("GruntAudioStreamPlayer3D");
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
+        anim2 = GetNode<AnimationPlayer>("AnimationPlayer2");
         world = GetTree().Root.GetNode<World>("World");
         colorRect = GetNode<ColorRect>("UI/ColorRect");
 

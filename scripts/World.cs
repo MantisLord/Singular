@@ -221,6 +221,7 @@ public partial class World : Node3D
         game.gameOver = true;
         player.anim.Play(FADEWHITE_ANIM_NAME);
         player.Velocity = Vector3.Zero;
+        player.anim2.PlayBackwards(HEALTHBAR_ANIM_NAME);
 
         // wait for game music to be done
         await ToSignal(GetTree().CreateTimer(20), SceneTreeTimer.SignalName.Timeout);
